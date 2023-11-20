@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC, useCallback, useEffect, useMemo, useState} from 'react'
-import {useIntl} from 'react-intl'
-import {Link} from 'react-router-dom'
-import {useAuth} from '../../modules/auth'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { useIntl } from 'react-intl'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../modules/auth'
 
 const DashboardManagerPage: FC = () => {
   const intl = useIntl()
@@ -98,20 +98,27 @@ const DashboardManagerPage: FC = () => {
   ]
 
   const [showMore, setShowMore] = useState(false)
-  
-  const {currentUser} = useAuth()
+
+  const { currentUser } = useAuth()
   return (
     <>
       {/* START HEADER */}
+      <div className='container pt-8'>
+        <div className='row mb-10'>
+          <div className='col-12'>
+            <div className='fs-2x fw-bold'>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</div>
+          </div>
+        </div>
+      </div>
       <div className='container'>
         <div className='row align-items-end justify-content-between bg-body pt-10 pb-15 px-3 px-md-5 mb-6 rounded'>
           <div className='col-md-8'>
             <div className='d-flex align-items-center mb-4'>
               <div className='fw-semi-bold fs-2 me-4'>
-                {intl.formatMessage({id: 'DASHBOARD.LABEL.WORKPLACE'})}
+                {intl.formatMessage({ id: 'DASHBOARD.LABEL.WORKPLACE' })}
               </div>
               <span className='text-gray-600'>
-                {intl.formatMessage({id: 'DASHBOARD.LABEL.FEATURED_OF_THE_DAY'})}
+                {intl.formatMessage({ id: 'DASHBOARD.LABEL.FEATURED_OF_THE_DAY' })}
               </span>
             </div>
             <div className='d-flex align-items-center'>
@@ -133,13 +140,13 @@ const DashboardManagerPage: FC = () => {
           <div className='col-md-4 d-flex align-items-center justify-content-between justify-content-md-end mt-10 mt-md-0'>
             <div className='text-end border-end border-gray-300 pe-5 me-10'>
               <span className='text-gray-600'>
-                {intl.formatMessage({id: 'DASHBOARD.LABEL.REGISTERED_PROJECTS'})}
+                {intl.formatMessage({ id: 'DASHBOARD.LABEL.REGISTERED_PROJECTS' })}
               </span>
               <div className='fs-2'>256</div>
             </div>
             <div className='text-end'>
               <span className='text-gray-600'>
-                {intl.formatMessage({id: 'DASHBOARD.LABEL.TASKS_FOR_ME'})}
+                {intl.formatMessage({ id: 'DASHBOARD.LABEL.TASKS_FOR_ME' })}
               </span>
               <div className='fs-2'>7</div>
             </div>
@@ -147,85 +154,50 @@ const DashboardManagerPage: FC = () => {
         </div>
       </div>
       {/* END HEADER */}
-      <div className='container pt-8 pb-15'>
-        <div className='row mb-10'>
-          <div className='col-12'>
-            <div className='fs-2x fw-bold'>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</div>
-          </div>
-        </div>
+      <div className='container pt-8 pb-10'>
         <div className='row bg-body pt-10 pb-4 px-3 px-md-5 mb-6 rounded'>
-          <div className='col-md-12 col-lg-4 pe-md-10 pb-8 pb-md-0 mt-md-10 mt-lg-0 mb-8 mb-md-0 border-end-md border-bottom border-bottom-md-0'>
-            <div className='fs-2 fw-bold'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.GLOBAL_PROFIT_MARGIN'})}
-            </div>
-            <select
-              style={{
-                backgroundImage: `url('data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23009ef7' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e')`,
-              }}
-              className='form-select form-select-sm w-80px text-primary bg-transparent border-0 p-0'
-              id='period'
-            >
-              <option selected value='0'>
-                Este ano
-              </option>
-              <option value='1'>2022</option>
-              <option value='2'>2021</option>
-              <option value='3'>2020</option>
-            </select>
-            <div className='ps-md-10 mt-md-10 mt-lg-12'>
-              
-            </div>
-          </div>
-          <div className='col-md-6 col-lg-4 ps-lg-10 pe-md-10 pb-8 pb-md-0 mt-md-10 mt-lg-0 mb-8 mb-md-0 border-end-md border-bottom border-bottom-md-0'>
-            <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.PROFIT_MARGIN_BY_SECTOR'})}
-            </div>
-            
-          </div>
-          <div className='col-md-6 col-lg-4 ps-md-10 mt-md-10 mt-lg-0'>
-            <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.TOP_5_CLIENTS'})}
-            </div>
+          <div className='fs-1 fw-bold mb-8'>
+            {intl.formatMessage({ id: 'MENU.ACTION' })}
           </div>
         </div>
         <div className='row bg-body pt-10 pb-4 px-3 px-md-5 mb-6 rounded'>
           <div className='fs-2 fw-bold mb-8'>
-            {intl.formatMessage({id: 'DASHBOARD.LABEL.MYSCHEDULE'})}
+            {intl.formatMessage({ id: 'DASHBOARD.LABEL.MYSCHEDULE' })}
           </div>
+          
         </div>
         <div className='row g-6 g-xl-9'>
           <div className='fs-2 fw-bold'>
-            {intl.formatMessage({id: 'DASHBOARD.LABEL.PROJECTS_I_LEAD'})}
+            {intl.formatMessage({ id: 'DASHBOARD.LABEL.PROJECTS_I_LEAD' })}
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
-            
+
           </div>
         </div>
         <div className='row bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-lg-6 pb-10 pb-lg-0 mb-10 mb-lg-0 border-bottom border-bottom-lg-0'>
             <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.HR_HIGHLIGHTS_OF'})} Janeiro
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.HR_HIGHLIGHTS_OF' })} Janeiro
             </div>
             <div className='content'>
               <div
-                className={`resume overflow-hidden transition-all ${
-                  showMore ? 'mh-1000px overflow-scroll' : 'mh-200px'
-                }`}
+                className={`resume overflow-hidden transition-all ${showMore ? 'mh-1000px overflow-scroll' : 'mh-200px'
+                  }`}
               >
                 <div className='py-5 border-gray-200 d-flex align-items-center'>
                   <div className='d-flex align-items-center'>
@@ -299,8 +271,8 @@ const DashboardManagerPage: FC = () => {
                   }}
                 >
                   {showMore
-                    ? intl.formatMessage({id: 'GENERAL.SEE_LESS'})
-                    : intl.formatMessage({id: 'GENERAL.SEE_MORE'})}
+                    ? intl.formatMessage({ id: 'GENERAL.SEE_LESS' })
+                    : intl.formatMessage({ id: 'GENERAL.SEE_MORE' })}
                   <i className='bi bi-chevron-expand text-primary'></i>
                 </span>
               </div>
@@ -311,14 +283,14 @@ const DashboardManagerPage: FC = () => {
               <div className='card-header d-flex align-items-start p-1'>
                 <h3 className='card-title flex-column'>
                   <span className='fs-2 fw-bold'>
-                    {intl.formatMessage({id: 'DASHBOARD.LABEL.TEAM_REGISTERED_HOURS'})}
+                    {intl.formatMessage({ id: 'DASHBOARD.LABEL.TEAM_REGISTERED_HOURS' })}
                   </span>
 
                   <span className='text-gray-400 mt-1 fw-semibold fs-6'>Ultimos 7 dias</span>
                 </h3>
                 <div className='card-toolbar'>
                   <label className='label-form me-3 fs-5'>
-                    {intl.formatMessage({id: 'PROJECT.LABEL.PERIOD'})}
+                    {intl.formatMessage({ id: 'PROJECT.LABEL.PERIOD' })}
                   </label>
                   <select className='form-select form-select-sm'>
                     <option selected>Hoje</option>
@@ -372,7 +344,7 @@ const DashboardManagerPage: FC = () => {
                             <span className='text-gray-600 fw-bold fs-6'>78%</span>
                           </td>
                           <td className='text-end pe-0'>
-                            
+
                           </td>
                         </tr>
                         <tr>
@@ -398,7 +370,7 @@ const DashboardManagerPage: FC = () => {
                             <span className='text-gray-600 fw-bold fs-6'>91%</span>
                           </td>
                           <td className='text-end pe-0'>
-                            
+
                           </td>
                         </tr>
                         <tr>
@@ -449,7 +421,7 @@ const DashboardManagerPage: FC = () => {
                             <span className='text-gray-600 fw-bold fs-6'>83%</span>
                           </td>
                           <td className='text-end pe-0'>
-                            
+
                           </td>
                         </tr>
                       </tbody>
@@ -463,11 +435,11 @@ const DashboardManagerPage: FC = () => {
         <div className='row justify-content-between bg-body pt-10 px-3 px-md-5 mb-6 rounded'>
           <div className='d-flex justify-content-between align-items-center mb-20'>
             <div className='fs-2 fw-bold'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.RECURRING_PROJECTS'})}
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.RECURRING_PROJECTS' })}
             </div>
             <div className='d-flex align-items-center pe-md-0'>
               <label className='label-form me-3 fs-5'>
-                {intl.formatMessage({id: 'PROJECT.LABEL.PERIOD'})}
+                {intl.formatMessage({ id: 'PROJECT.LABEL.PERIOD' })}
               </label>
               <select className='form-select form-select-sm'>
                 <option selected>Ciclo atual</option>
@@ -480,7 +452,7 @@ const DashboardManagerPage: FC = () => {
           {recurrent_projects.map((project) => (
             <div className='col-6 col-md-3 col-lg-2 mx-md-1 mb-20 text-center'>
               <div className='fs-3 fw-bold'>{project.name}</div>
-              
+
               <div className='fw-semi-bold'>Ciclo: {project.cycle}</div>
             </div>
           ))}
@@ -488,7 +460,7 @@ const DashboardManagerPage: FC = () => {
         <div className='row justify-content-between bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-lg-6 pb-10 pb-lg-0 mb-15 mb-lg-0 border-bottom border-bottom-lg-0'>
             <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.PROGRESS_OPEN_PROJECTS'})}
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.PROGRESS_OPEN_PROJECTS' })}
             </div>
             {open_projects.map((openProject) => (
               <div className='mb-3'>
@@ -503,7 +475,7 @@ const DashboardManagerPage: FC = () => {
                       <div
                         className={openProject.statusColor}
                         role='progressbar'
-                        style={{width: `${openProject.doneInPercentage}%`}}
+                        style={{ width: `${openProject.doneInPercentage}%` }}
                       ></div>
                     </div>
                   </div>
@@ -514,7 +486,7 @@ const DashboardManagerPage: FC = () => {
           </div>
           <div className='col-lg-6'>
             <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.RELEVANT_ACTIVITIES'})}
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.RELEVANT_ACTIVITIES' })}
             </div>
             <div className='border border-gray-200 pt-5 pb-8 px-5'>
               <div className='py-5 border-bottom border-gray-200 d-flex align-items-center'>
@@ -559,7 +531,7 @@ const DashboardManagerPage: FC = () => {
         <div className='row justify-content-between bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-12'>
             <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({id: 'DASHBOARD.LABEL.EXPIRING_CONTRACTS'})}
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.EXPIRING_CONTRACTS' })}
             </div>
           </div>
         </div>
@@ -576,4 +548,4 @@ const DashboardManagerWrapper: FC = () => {
   )
 }
 
-export {DashboardManagerWrapper}
+export { DashboardManagerWrapper }

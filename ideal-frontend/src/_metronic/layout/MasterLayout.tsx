@@ -15,7 +15,7 @@ import {
 } from '../partials'
 import {PageDataProvider} from './core'
 import {reInitMenu} from '../helpers'
-import {ToolbarWrapper} from './components/toolbar'
+// import {ToolbarWrapper} from './components/toolbar'
 
 const MasterLayout = () => {
   const location = useLocation()
@@ -33,7 +33,7 @@ const MasterLayout = () => {
               <Sidebar />
               <div className='app-main flex-column flex-row-fluid' id='kt_app_main'>
                 <div className='d-flex flex-column flex-column-fluid'>
-                  <ToolbarWrapper />
+                  {/* <ToolbarWrapper /> */}
                   <Content>
                     <Outlet />
                   </Content>
