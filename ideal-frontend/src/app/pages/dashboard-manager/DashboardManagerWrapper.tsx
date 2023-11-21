@@ -3,6 +3,8 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../modules/auth'
+import { Avatar, Card, CardActionArea, CardHeader } from '@mui/material'
+import { toAbsoluteUrl } from '../../../_metronic/helpers'
 
 const DashboardManagerPage: FC = () => {
   const intl = useIntl()
@@ -15,7 +17,7 @@ const DashboardManagerPage: FC = () => {
     return 'Boa noite';
   }
 
-
+  const theme = localStorage.getItem('kt_theme_mode_menu');
   const recurrent_projects = [
     {
       name: 'Aktie Now',
@@ -98,7 +100,7 @@ const DashboardManagerPage: FC = () => {
   ]
 
   const [showMore, setShowMore] = useState(false)
-
+  // debugger
   const { currentUser } = useAuth()
   return (
     <>
@@ -154,17 +156,45 @@ const DashboardManagerPage: FC = () => {
         </div>
       </div>
       {/* END HEADER */}
+      {/* {debugger} */}
       <div className='container pt-8 pb-10'>
-        <div className='row bg-body pt-10 pb-4 px-3 px-md-5 mb-6 rounded'>
-          <div className='fs-1 fw-bold mb-8'>
-            {intl.formatMessage({ id: 'MENU.ACTION' })}
+      <div className='row mb-10'>
+          <div className='col-12'>
+            <div className='fs-1 fw-bold'>{intl.formatMessage({ id: 'MENU.ACTION'})}</div>
           </div>
         </div>
-        <div className='row bg-body pt-10 pb-4 px-3 px-md-5 mb-6 rounded'>
-          <div className='fs-2 fw-bold mb-8'>
-            {intl.formatMessage({ id: 'DASHBOARD.LABEL.MYSCHEDULE' })}
-          </div>
-          
+        <div className='col-6'>
+        <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
+          <Card sx={{ maxWidth: 700  }}
+          >
+            <CardActionArea >
+            <CardHeader
+              avatar={
+                <Avatar className='symbol symbol-40px symbol-circle '>
+                  <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                </Avatar>
+              }
+              title="Crie um checklist."
+              subheader="Construa checklists do zero ou use modelos para suas auditorias."
+            />
+            </CardActionArea>
+          </Card>
+        </div>
+        <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
+        <Card sx={{  maxWidth: 700 }}>
+            <CardActionArea >
+            <CardHeader
+              avatar={
+                <Avatar className='symbol symbol-40px symbol-circle '>
+                  <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                </Avatar>
+              }
+              title="Crie um checklist."
+              subheader="Construa checklists do zero ou use modelos para suas auditorias."
+            />
+            </CardActionArea>
+          </Card>
+        </div>
         </div>
         <div className='row g-6 g-xl-9'>
           <div className='fs-2 fw-bold'>
