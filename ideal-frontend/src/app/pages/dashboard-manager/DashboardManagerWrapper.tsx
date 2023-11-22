@@ -165,7 +165,7 @@ const DashboardManagerPage: FC = () => {
         </div>
         <div className='col-6'>
         <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
-          <Card sx={{ maxWidth: 700  }}
+          <Card className='bg-body'
           >
             <CardActionArea >
             <CardHeader
@@ -181,7 +181,7 @@ const DashboardManagerPage: FC = () => {
           </Card>
         </div>
         <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
-        <Card sx={{  maxWidth: 700 }}>
+        <Card className='bg-body'>
             <CardActionArea >
             <CardHeader
               avatar={
