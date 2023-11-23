@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../modules/auth'
 import { Avatar, Card, CardActionArea, CardHeader } from '@mui/material'
-import { toAbsoluteUrl } from '../../../_metronic/helpers'
+import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers'
 
 const DashboardManagerPage: FC = () => {
   const intl = useIntl()
@@ -158,56 +158,179 @@ const DashboardManagerPage: FC = () => {
       {/* END HEADER */}
       {/* {debugger} */}
       <div className='container pt-8 pb-10'>
-      <div className='row mb-10'>
+        <div className='row mb-3'>
           <div className='col-12'>
-            <div className='fs-1 fw-bold'>{intl.formatMessage({ id: 'MENU.ACTION'})}</div>
+            <div className='fs-1 fw-bold'>{intl.formatMessage({ id: 'MENU.ACTION' })}</div>
           </div>
         </div>
-        <div className='col-6'>
-        <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
-          <Card className='bg-body'
-          >
-            <CardActionArea >
-            <CardHeader
-              avatar={
-                <Avatar className='symbol symbol-40px symbol-circle '>
-                  <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
-                </Avatar>
-              }
-              title="Crie um checklist."
-              subheader="Construa checklists do zero ou use modelos para suas auditorias."
-            />
-            </CardActionArea>
-          </Card>
+        <div className='row'>
+        <div className='col-md-6 col-lg-6'>
+          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+            <Card className='bg-body'
+            >
+              <CardActionArea >
+                <CardHeader
+                  avatar={
+                    <Avatar className='symbol symbol-50px symbol-circle '>
+                      <img src={toAbsoluteUrl("/media/icons/duotune/general/gen043.svg")} />
+                    </Avatar>
+                  }
+                  title={
+                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie um checklist.</p>
+                  }
+                  subheader={<span className='text-gray-600'>
+                    Construa checklists do zero ou use modelos para suas auditorias.
+                  </span>}
+                />
+              </CardActionArea>
+            </Card>
+          </div>
+          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+            <Card className='bg-body'
+            >
+              <CardActionArea >
+                <CardHeader
+                  avatar={
+                    <Avatar className='symbol symbol-40px symbol-circle '>
+                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                    </Avatar>
+                  }
+                  title={
+                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie uma unidade.</p>
+                  }
+                  subheader={<span className='text-gray-600'>
+                    Adicione as unidades que serão avaliadas nos seus checklists.
+                  </span>}
+                />
+              </CardActionArea>
+            </Card>
+          </div>
+          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+            <Card className='bg-body'
+            >
+              <CardActionArea >
+                <CardHeader
+                  avatar={
+                    <Avatar className='symbol symbol-40px symbol-circle '>
+                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                    </Avatar>
+                  }
+                  title={
+                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie usuários.</p>
+                  }
+                  subheader={<span className='text-gray-600'>
+                    Traga mais pessoas da sua operação para usar o IdealChecklist!
+                  </span>}
+                />
+              </CardActionArea>
+            </Card>
+          </div>
         </div>
-        <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
-        <Card className='bg-body'>
-            <CardActionArea >
-            <CardHeader
-              avatar={
-                <Avatar className='symbol symbol-40px symbol-circle '>
-                  <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
-                </Avatar>
-              }
-              title="Crie um checklist."
-              subheader="Construa checklists do zero ou use modelos para suas auditorias."
-            />
-            </CardActionArea>
-          </Card>
+        <div className='col-md-6 col-lg-6'>
+          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+            <Card className='bg-body'>
+              <CardActionArea sx={{height: 161}}>
+                <CardHeader
+                  avatar={
+                    <Avatar className='symbol symbol-50px symbol-circle '>
+                      <img src={toAbsoluteUrl("/media/icons/duotune/general/gen043.svg")} />
+                    </Avatar>
+                  }
+                  title={
+                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Aplique um checklist!</p>
+                  }
+                  subheader={<span className='text-gray-600'>
+                    Traga mais pessoas da sua operação para usar o IdealChecklist!
+                  </span>}
+                />
+              </CardActionArea>
+            </Card>
+          </div>
+          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+            <Card className='bg-body'
+            >
+              <CardActionArea >
+                <CardHeader
+                  avatar={
+                    <Avatar className='symbol symbol-40px symbol-circle '>
+                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                    </Avatar>
+                  }
+                  title={
+                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Academia IdealCheckList</p>
+                  }
+                />
+              </CardActionArea>
+            </Card>
+          </div>
         </div>
         </div>
-        <div className='row g-6 g-xl-9'>
+        <div className='row g-4 g-xl-9 pt-10'>
           <div className='fs-2 fw-bold'>
-            {intl.formatMessage({ id: 'DASHBOARD.LABEL.PROJECTS_I_LEAD' })}
+            {intl.formatMessage({ id: 'DASHBOARD.LABEL.ACTIVITY' })}
           </div>
-          <div className='col-md-6 col-lg-4 mb-8'>
-
+          <div className='col-md-6 col-lg-4 mb-2'>
+            <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'>
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-50px symbol-circle '>
+                        <KTSVG path="/media/icons/duotune/general/gen043.svg" className="svg-icon-muted svg-icon-3hx" />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Checklist criados</p>
+                    }
+                    subheader={<span className='text-gray-900 fs-6'>
+                      0 
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
           </div>
-          <div className='col-md-6 col-lg-4 mb-8'>
-
+          <div className='col-md-6 col-lg-4 mb-2'>
+            <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'>
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-40px symbol-circle '>
+                        <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Unidades criadas</p>
+                    }
+                    subheader={<span className='text-gray-900 fs-6'>
+                      0
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
           </div>
-          <div className='col-md-6 col-lg-4 mb-8'>
-
+          <div className='col-md-6 col-lg-4 mb-2'>
+            <div className='row pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'>
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-40px symbol-circle '>
+                        <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Usuários criados</p>
+                    }
+                    subheader={<span className='text-gray-900 fs-6'>
+                      0
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
           </div>
           <div className='col-md-6 col-lg-4 mb-8'>
 
@@ -219,7 +342,7 @@ const DashboardManagerPage: FC = () => {
 
           </div>
         </div>
-        <div className='row bg-body py-10 px-3 px-md-5 mb-6 rounded'>
+        {/* <div className='row bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-lg-6 pb-10 pb-lg-0 mb-10 mb-lg-0 border-bottom border-bottom-lg-0'>
             <div className='fs-2 fw-bold mb-8'>
               {intl.formatMessage({ id: 'DASHBOARD.LABEL.HR_HIGHLIGHTS_OF' })} Janeiro
@@ -461,8 +584,8 @@ const DashboardManagerPage: FC = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className='row justify-content-between bg-body pt-10 px-3 px-md-5 mb-6 rounded'>
+        </div> */}
+        {/* <div className='row justify-content-between bg-body pt-10 px-3 px-md-5 mb-6 rounded'>
           <div className='d-flex justify-content-between align-items-center mb-20'>
             <div className='fs-2 fw-bold'>
               {intl.formatMessage({ id: 'DASHBOARD.LABEL.RECURRING_PROJECTS' })}
@@ -486,8 +609,8 @@ const DashboardManagerPage: FC = () => {
               <div className='fw-semi-bold'>Ciclo: {project.cycle}</div>
             </div>
           ))}
-        </div>
-        <div className='row justify-content-between bg-body py-10 px-3 px-md-5 mb-6 rounded'>
+        </div> */}
+        {/* <div className='row justify-content-between bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-lg-6 pb-10 pb-lg-0 mb-15 mb-lg-0 border-bottom border-bottom-lg-0'>
             <div className='fs-2 fw-bold mb-8'>
               {intl.formatMessage({ id: 'DASHBOARD.LABEL.PROGRESS_OPEN_PROJECTS' })}
@@ -564,7 +687,7 @@ const DashboardManagerPage: FC = () => {
               {intl.formatMessage({ id: 'DASHBOARD.LABEL.EXPIRING_CONTRACTS' })}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )
