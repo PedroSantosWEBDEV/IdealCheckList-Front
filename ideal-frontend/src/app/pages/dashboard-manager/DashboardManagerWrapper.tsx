@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../modules/auth'
-import { Avatar, Card, CardActionArea, CardHeader } from '@mui/material'
+import { Avatar, Card, CardActionArea, CardHeader, CardMedia } from '@mui/material'
 import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers'
 
 const DashboardManagerPage: FC = () => {
@@ -164,106 +164,113 @@ const DashboardManagerPage: FC = () => {
           </div>
         </div>
         <div className='row'>
-        <div className='col-md-6 col-lg-6'>
-          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
-            <Card className='bg-body'
-            >
-              <CardActionArea >
-                <CardHeader
-                  avatar={
-                    <Avatar className='symbol symbol-50px symbol-circle '>
-                      <img src={toAbsoluteUrl("/media/icons/duotune/general/gen043.svg")} />
-                    </Avatar>
-                  }
-                  title={
-                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie um checklist.</p>
-                  }
-                  subheader={<span className='text-gray-600'>
-                    Construa checklists do zero ou use modelos para suas auditorias.
-                  </span>}
-                />
-              </CardActionArea>
-            </Card>
+          <div className='col-md-6 col-lg-6'>
+            <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'
+              >
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-50px symbol-circle '>
+                        <img src={toAbsoluteUrl("/media/icons/duotune/general/gen043.svg")} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie um checklist.</p>
+                    }
+                    subheader={<span className='text-gray-600'>
+                      Construa checklists do zero ou use modelos para suas auditorias.
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
+            <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'
+              >
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-35px symbol-circle'>
+                        <img src={toAbsoluteUrl("/media/icons/duotune/general/gen018.svg")} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie uma unidade.</p>
+                    }
+                    subheader={<span className='text-gray-600'>
+                      Adicione as unidades que serão avaliadas nos seus checklists.
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
+            <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'
+              >
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-50px symbol-circle '>
+                        <img src={toAbsoluteUrl("/media/icons/duotune/communication/com006.svg")} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie usuários.</p>
+                    }
+                    subheader={<span className='text-gray-600'>
+                      Traga mais pessoas da sua operação para usar o IdealChecklist!
+                    </span>}
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
           </div>
-          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
-            <Card className='bg-body'
-            >
-              <CardActionArea >
-                <CardHeader
-                  avatar={
-                    <Avatar className='symbol symbol-40px symbol-circle '>
-                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
-                    </Avatar>
-                  }
-                  title={
-                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie uma unidade.</p>
-                  }
-                  subheader={<span className='text-gray-600'>
-                    Adicione as unidades que serão avaliadas nos seus checklists.
-                  </span>}
-                />
-              </CardActionArea>
-            </Card>
+          <div className='col-md-6 col-lg-6'>
+            <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'>
+                <CardActionArea sx={{ height: 161 }}>
+                  <div className='row'>
+                    <div className='col-md-4'>
+                      <CardMedia
+                        component="img"
+                        className='w-100 rounded float-start'
+                        image={toAbsoluteUrl('/media/illustrations/dozzy-1/17.png')}
+                        alt="Paella dish"
+                      />
+                    </div>
+                    <div className='col-md-8'>
+                      <CardHeader
+                        title={
+                          <p className='text-gray-900 fw-bold fs-6 mb-1'>Aplique um checklist!</p>
+                        }
+                        subheader={<span className='text-gray-600'>
+                          Traga mais pessoas da sua operação para usar o IdealChecklist!
+                        </span>}
+                      />
+                    </div>
+                  </div>
+                </CardActionArea>
+              </Card>
+            </div>
+            <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
+              <Card className='bg-body'
+              >
+                <CardActionArea >
+                  <CardHeader
+                    avatar={
+                      <Avatar className='symbol symbol-50px symbol-circle '>
+                        <img src={toAbsoluteUrl("/media/icons/duotune/general/gen044.svg")} />
+                      </Avatar>
+                    }
+                    title={
+                      <p className='text-gray-900 fw-bold fs-6 mb-1'>Academia IdealCheckList</p>
+                    }
+                  />
+                </CardActionArea>
+              </Card>
+            </div>
           </div>
-          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
-            <Card className='bg-body'
-            >
-              <CardActionArea >
-                <CardHeader
-                  avatar={
-                    <Avatar className='symbol symbol-40px symbol-circle '>
-                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
-                    </Avatar>
-                  }
-                  title={
-                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Crie usuários.</p>
-                  }
-                  subheader={<span className='text-gray-600'>
-                    Traga mais pessoas da sua operação para usar o IdealChecklist!
-                  </span>}
-                />
-              </CardActionArea>
-            </Card>
-          </div>
-        </div>
-        <div className='col-md-6 col-lg-6'>
-          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
-            <Card className='bg-body'>
-              <CardActionArea sx={{height: 161}}>
-                <CardHeader
-                  avatar={
-                    <Avatar className='symbol symbol-50px symbol-circle '>
-                      <img src={toAbsoluteUrl("/media/icons/duotune/general/gen043.svg")} />
-                    </Avatar>
-                  }
-                  title={
-                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Aplique um checklist!</p>
-                  }
-                  subheader={<span className='text-gray-600'>
-                    Traga mais pessoas da sua operação para usar o IdealChecklist!
-                  </span>}
-                />
-              </CardActionArea>
-            </Card>
-          </div>
-          <div className='pt-1 pb-4 px-3 px-md-5 rounded'>
-            <Card className='bg-body'
-            >
-              <CardActionArea >
-                <CardHeader
-                  avatar={
-                    <Avatar className='symbol symbol-40px symbol-circle '>
-                      <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
-                    </Avatar>
-                  }
-                  title={
-                    <p className='text-gray-900 fw-bold fs-6 mb-1'>Academia IdealCheckList</p>
-                  }
-                />
-              </CardActionArea>
-            </Card>
-          </div>
-        </div>
         </div>
         <div className='row g-4 g-xl-9 pt-10'>
           <div className='fs-2 fw-bold'>
@@ -283,7 +290,7 @@ const DashboardManagerPage: FC = () => {
                       <p className='text-gray-900 fw-bold fs-6 mb-1'>Checklist criados</p>
                     }
                     subheader={<span className='text-gray-900 fs-6'>
-                      0 
+                      0
                     </span>}
                   />
                 </CardActionArea>
@@ -297,7 +304,7 @@ const DashboardManagerPage: FC = () => {
                   <CardHeader
                     avatar={
                       <Avatar className='symbol symbol-40px symbol-circle '>
-                        <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                        <KTSVG path="/media/icons/duotune/general/gen018.svg" className="svg-icon-2hx svg-icon-danger" />
                       </Avatar>
                     }
                     title={
@@ -318,7 +325,7 @@ const DashboardManagerPage: FC = () => {
                   <CardHeader
                     avatar={
                       <Avatar className='symbol symbol-40px symbol-circle '>
-                        <img alt='Pic' src={toAbsoluteUrl(`/media/avatars/300-14.jpg`)} />
+                        <KTSVG path="/media/icons/duotune/communication/com006.svg" className="svg-icon-muted svg-icon-3hx" />
                       </Avatar>
                     }
                     title={
@@ -345,7 +352,7 @@ const DashboardManagerPage: FC = () => {
         <div className='row bg-body py-10 px-3 px-md-5 mb-6 rounded'>
           <div className='col-lg-6 pb-10 pb-lg-0 mb-10 mb-lg-0 border-bottom border-bottom-lg-0'>
             <div className='fs-2 fw-bold mb-8'>
-              {intl.formatMessage({ id: 'DASHBOARD.LABEL.LAST_CHECKLISTS_APPLIED'})} 
+              {intl.formatMessage({ id: 'DASHBOARD.LABEL.LAST_CHECKLISTS_APPLIED' })}
             </div>
           </div>
         </div>
