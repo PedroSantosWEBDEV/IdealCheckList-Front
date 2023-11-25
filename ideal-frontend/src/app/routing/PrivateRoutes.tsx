@@ -10,12 +10,13 @@ import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import { useAuth } from '../modules/auth'
 
 const PrivateRoutes = () => {
-  // const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
-  // const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
-  // const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
-  // const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
-  // const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
-  // const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
+  const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
+  const UserPage = lazy(() => import('../modules/user/UserPage'))
+  const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
+  const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
+  const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
+  const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
   const {currentUser} = useAuth()
   return (
     <Routes>
@@ -38,16 +39,16 @@ const PrivateRoutes = () => {
               <ProfilePage />
             </SuspensedView>
           }
-        />
+        /> */}
         <Route
-          path='crafted/pages/wizards/*'
+          path='config/user/*'
           element={
             <SuspensedView>
-              <WizardsPage />
+              <UserPage />
             </SuspensedView>
           }
         />
-        <Route
+        {/* <Route
           path='crafted/widgets/*'
           element={
             <SuspensedView>
@@ -62,16 +63,16 @@ const PrivateRoutes = () => {
               <AccountPage />
             </SuspensedView>
           }
-        />
-        <Route
+        /> */}
+        {/* <Route
           path='apps/chat/*'
           element={
             <SuspensedView>
               <ChatPage />
             </SuspensedView>
           }
-        />
-        <Route
+        /> */}
+        {/* <Route
           path='apps/user-management/*'
           element={
             <SuspensedView>
