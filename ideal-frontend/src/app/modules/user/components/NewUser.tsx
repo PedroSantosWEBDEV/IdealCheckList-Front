@@ -1,17 +1,21 @@
-import {Modal} from 'react-bootstrap'
-import {ID} from '../../../../_metronic/helpers'
-import {UserModalContentWrapper} from './UserModalContentWrapper'
-import { StepperComponent } from '../../../../_metronic/assets/ts/components'
-import { useRef, useState ,useEffect} from 'react'
+import React, {FC, useEffect, useRef, useState} from 'react'
+import {Step1} from './steps/Step1'
+import {Step2} from './steps/Step2'
+import {Step3} from './steps/Step3'
+import {Step4} from './steps/Step4'
+import {Step5} from './steps/Step5'
+import {ID, KTSVG} from '../../../../_metronic/helpers'
+import {StepperComponent} from '../../../../_metronic/assets/ts/components'
+import { UserModalContentWrapper } from './UserModalContentWrapper'
+
 
 type Props = {
-  show: boolean
   userId: ID
 }
-
-const NewUser: React.FC<Props> = ({show, userId}) => {
+const NewUser: React.FC<Props> = ({userId}) => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
+
   const [isLoanding,setIsLoading] = useState(true)
 // debugger;
   useEffect(() => {
@@ -22,21 +26,10 @@ const NewUser: React.FC<Props> = ({show, userId}) => {
   const loadStepper =  () => {
      stepper.current =  StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
-  // console.log(stepper);
-  // console.log(stepperRef);
-// debugger;
+
   return (
-    <Modal
-    id='kt_modal_edit_project'
-    tabIndex={-1}
-    aria-hidden='true'
-    dialogClassName='modal-dialog modal-dialog-centered mw-900px'
-    show={show}
-    onEntered={loadStepper}
-    backdrop={true}
-  >
-      <UserModalContentWrapper id={userId} setIsLoading={setIsLoading} stepper={stepper} stepperRef ={stepperRef} />
-    </Modal>
+
+      <UserModalContentWrapper id={userId} loadStepper={loadStepper} setIsLoading={setIsLoading} stepper={stepper} stepperRef ={stepperRef} />
   )
 }
 

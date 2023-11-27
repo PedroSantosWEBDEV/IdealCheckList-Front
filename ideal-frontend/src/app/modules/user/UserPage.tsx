@@ -2,6 +2,7 @@ import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {NewUser} from './components/NewUser'
 
+
 const UserPage = () => (
   <Routes>
     <Route element={<Outlet />}>
@@ -9,8 +10,8 @@ const UserPage = () => (
         path='new-user'
         element={
           <>
-            <PageTitle >Novo Usuario</PageTitle>
-            <NewUser show={true} userId={undefined} />
+            <PageTitle>Novo Usuario</PageTitle>
+            <NewUser userId={undefined} />
           </>
         }
       />

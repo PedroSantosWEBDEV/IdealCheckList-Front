@@ -1,26 +1,22 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import {useIntl} from 'react-intl'
-import {useCallback, useEffect, useState} from 'react'
-import {StepProps, User} from '../core/_models'
+import { useIntl } from 'react-intl'
+import { useCallback, useEffect, useState } from 'react'
+import { StepProps, User } from '../core/_models'
 import clsx from 'clsx'
-import {createUser} from '../core/_requests'
-import {url} from 'inspector'
-import {isNotEmpty, toAbsoluteUrl} from '../../../../helpers'
+import { createUser } from '../core/_requests'
+import { url } from 'inspector'
+import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
 
-const Step1 = ({data, updateData, hasError, props}: StepProps) => {
+const Step1 = ({ data, updateData, hasError, props }: StepProps) => {
   const intl = useIntl()
   const [logo, setLogo] = useState(data.avatar)
   // const [profileImage, setProfileImage] = useState("teste");
   // debugger;
-
   const handleCreateBase64 = useCallback(
     async (e: any) => {
       // debugger
       const file = e.target.files[0]
-
       const base64: any = await convertToBase64(file)
       setLogo(base64)
-
       updateData({
         avatar: e.target.files[0],
       })
@@ -29,7 +25,6 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
     [updateData]
   )
   // console.log(data)
-
   const convertToBase64 = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader()
@@ -46,7 +41,6 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
       }
     })
   }
-
   const deleteImage = (e: any) => {
     e.preventDefault()
     updateData({
@@ -54,9 +48,7 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
     })
     setLogo('')
   }
-
   const CurrentTheme = window.localStorage.getItem('kt_theme_mode_value') || ''
-
   return (
     <div className='current' data-kt-stepper-element='content'>
       <div className='w-100'>
@@ -129,19 +121,19 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
         <div className='fv-row mb-4'>
           <label htmlFor='name' className='d-flex align-items-center fs-5 fw-semibold mb-2'>
             <span className='required'>
-              {intl.formatMessage({id: 'FORM.INPUT.NAME.USER_NAME'})}
+              {intl.formatMessage({ id: 'FORM.INPUT.NAME.USER_NAME' })}
             </span>
             <i
               className='fas fa-exclamation-circle ms-2 fs-7'
               data-bs-toggle='tooltip'
-              title={intl.formatMessage({id: 'FORM.INPUT.TOOLTIP.USER_NAME'})}
+              title={intl.formatMessage({ id: 'FORM.INPUT.TOOLTIP.USER_NAME' })}
             ></i>
           </label>
           <input
             type='text'
             className={clsx(
               'form-control form-control-lg form-control-solid',
-              {'is-invalid': !props.touched.name && props.errors.name},
+              { 'is-invalid': !props.touched.name && props.errors.name },
               {
                 'is-valid': data.name && !props.errors.name,
               }
@@ -169,30 +161,29 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
           {!data.name && hasError && (
             <div className='fv-plugins-message-container'>
               <div data-field='shift_time' data-validator='notEmpty' className='fv-help-block'>
-                {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
+                {intl.formatMessage({ id: 'FORM.INPUT.VALIDATION.REQUIRED' })}
               </div>
             </div>
           )}
         </div>
         {/*end::Form Group */}
-
         {/*begin::Form Group */}
         <div className='fv-row mb-10'>
           <label htmlFor='email' className='d-flex align-items-center fs-5 fw-semibold mb-2'>
             <span className='required'>
-              {intl.formatMessage({id: 'FORM.INPUT.NAME.USER_EMAIL'})}
+              {intl.formatMessage({ id: 'FORM.INPUT.NAME.USER_EMAIL' })}
             </span>
             <i
               className='fas fa-exclamation-circle ms-2 fs-7'
               data-bs-toggle='tooltip'
-              title={intl.formatMessage({id: 'FORM.INPUT.TOOLTIP.USER_EMAIL'})}
+              title={intl.formatMessage({ id: 'FORM.INPUT.TOOLTIP.USER_EMAIL' })}
             ></i>
           </label>
           <input
             type='email'
             className={clsx(
               'form-control form-control-lg form-control-solid',
-              {'is-invalid': !props.touched.email && props.errors.email},
+              { 'is-invalid': !props.touched.email && props.errors.email },
               {
                 'is-valid': data.email && !props.errors.email,
               }
@@ -221,7 +212,7 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
           {!data.email && hasError && (
             <div className='fv-plugins-message-container'>
               <div data-field='shift_time' data-validator='notEmpty' className='fv-help-block'>
-                {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
+                {intl.formatMessage({ id: 'FORM.INPUT.VALIDATION.REQUIRED' })}
               </div>
             </div>
           )}
@@ -229,7 +220,8 @@ const Step1 = ({data, updateData, hasError, props}: StepProps) => {
         {/*end::Form Group */}
       </div>
     </div>
+
   )
 }
 
-export {Step1}
+export { Step1 }
