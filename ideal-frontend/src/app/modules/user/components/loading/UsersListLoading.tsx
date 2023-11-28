@@ -1,5 +1,4 @@
 import { useIntl } from 'react-intl'
-
 const UsersListLoading = () => {
   const intl = useIntl()
   const styles = {
@@ -14,8 +13,6 @@ const UsersListLoading = () => {
     top: 'calc(50% - 2rem)',
     left: 'calc(50% - 4rem)',
   }
-
   return <div style={{...styles, position: 'absolute', textAlign: 'center'}}>{intl.formatMessage({id: 'GENERAL.LOADING'})}</div>
 }
-
 export {UsersListLoading}

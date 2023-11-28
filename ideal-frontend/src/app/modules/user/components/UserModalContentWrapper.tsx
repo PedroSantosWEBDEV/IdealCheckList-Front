@@ -6,14 +6,13 @@ import {getUserById} from './core/_requests'
 import {ID} from '../../../../_metronic/helpers'
 import { StepperComponent } from '../../../../_metronic/assets/ts/components'
 import {UsersListLoading} from './loading/UsersListLoading'
-
 type Props = {
   id: ID
+  loadStepper: () => void
   stepper: React.MutableRefObject<StepperComponent | null>
   stepperRef: React.MutableRefObject<HTMLDivElement | null>
   setIsLoading: React.SetStateAction<any>
 }
-
 const UserModalContentWrapper: FC<Props> = ({
   id,
   stepper,
@@ -24,7 +23,6 @@ const UserModalContentWrapper: FC<Props> = ({
   const [itemIdForUpdate, setItemIdForUpdate] = useState<ID>(id)
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate)
   setIsLoading(true);
-
   const {
     isLoading,
     data: user,
@@ -45,7 +43,6 @@ const UserModalContentWrapper: FC<Props> = ({
       },
     }
   )
-
   if (!itemIdForUpdate) {
     // console.log("AQUII")
     return (
@@ -78,7 +75,6 @@ const UserModalContentWrapper: FC<Props> = ({
       />
     )
   }
-
   if (!isLoading && !error && user) {
     // console.log('update')
     // debugger;
@@ -94,8 +90,6 @@ const UserModalContentWrapper: FC<Props> = ({
   } else {
     return <UsersListLoading />
   }
-
   return null
 }
-
 export {UserModalContentWrapper}

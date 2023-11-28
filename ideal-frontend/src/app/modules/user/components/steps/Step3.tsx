@@ -1,9 +1,8 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import {useIntl} from 'react-intl'
-import {StepProps} from '../core/_models'
+import { useIntl } from 'react-intl'
+import { StepProps } from '../core/_models'
 import clsx from 'clsx'
 
-const Step3 = ({data, updateData, hasError, props}: StepProps) => {
+const Step3 = ({ data, updateData, hasError, props }: StepProps) => {
   const intl = useIntl()
   // console.log(data)
   return (
@@ -13,7 +12,7 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
         <div className='w-100'>
           <div className='fv-row mt-5'>
             <div className='col-md-12'>
-              <h4>{intl.formatMessage({id: 'FORM.INPUT.NAME.WORK_DAYS'})}</h4>
+              <h4>{intl.formatMessage({ id: 'FORM.INPUT.NAME.WORK_DAYS' })}</h4>
               <div className='btn-group mb-2' role='group'>
                 <input
                   type='checkbox'
@@ -29,8 +28,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                       shift_time: data.shift_time,
                     })
@@ -40,9 +39,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='mondey'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.MONDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.MONDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -57,8 +55,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                       shift_time: data.shift_time,
                     })
@@ -68,9 +66,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='tuesday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.TUESDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.TUESDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -84,8 +81,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                     })
                   }}
@@ -94,9 +91,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='wednesday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.WEDNESDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.WEDNESDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -110,8 +106,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                     })
                   }}
@@ -120,9 +116,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='thursday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.THURSDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.THURSDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -136,8 +131,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                     })
                   }}
@@ -146,9 +141,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='friday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.FRIDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.FRIDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -162,8 +156,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                     })
                   }}
@@ -172,9 +166,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='saturday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.SATURDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.SATURDAY' })}
                 </label>
-
                 <input
                   type='checkbox'
                   className='btn-check'
@@ -188,8 +181,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       workdays:
                         !e.target.checked && index > -1
                           ? data.workdays.filter(
-                              (workdays) => workdays !== parseInt(e.target.value)
-                            )
+                            (workdays) => workdays !== parseInt(e.target.value)
+                          )
                           : data.workdays.concat(parseInt(e.target.value)),
                     })
                   }}
@@ -198,45 +191,45 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   className='btn btn-outline btn-outline-primary rounded fw-normal py-1 px-3'
                   htmlFor='sunday'
                 >
-                  {intl.formatMessage({id: 'WEEKDAYS.SUNDAY'})}
+                  {intl.formatMessage({ id: 'WEEKDAYS.SUNDAY' })}
                 </label>
               </div>
               <div className='d-flex align-items-center mb-3' role='group'>
                 {data.workdays.length > 0
                   ? false
                   : true &&
-                    hasError && (
-                      <div className='fv-plugins-message-container ms-5'>
-                        <div
-                          data-field='workdays'
-                          data-validator='notEmpty'
-                          className='fv-help-block'
-                        >
-                          {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
-                        </div>
+                  hasError && (
+                    <div className='fv-plugins-message-container ms-5'>
+                      <div
+                        data-field='workdays'
+                        data-validator='notEmpty'
+                        className='fv-help-block'
+                      >
+                        {intl.formatMessage({ id: 'FORM.INPUT.VALIDATION.REQUIRED' })}
                       </div>
-                    )}
+                    </div>
+                  )}
                 {data.workdays.length * parseInt(data.shift_time) <= 44
                   ? false
                   : true &&
-                    data.shift_time && (
-                      <div className='fv-plugins-message-container ms-5'>
-                        <div
-                          data-field='workdays'
-                          data-validator='notEmpty'
-                          className='fv-help-block'
-                        >
-                          {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.MAX_HOURS'})}
-                        </div>
+                  data.shift_time && (
+                    <div className='fv-plugins-message-container ms-5'>
+                      <div
+                        data-field='workdays'
+                        data-validator='notEmpty'
+                        className='fv-help-block'
+                      >
+                        {intl.formatMessage({ id: 'FORM.INPUT.VALIDATION.MAX_HOURS' })}
                       </div>
-                    )}
+                    </div>
+                  )}
               </div>
               <div className='d-flex align-items-center'>
                 <div className='row justify-content-between'>
                   <div className='col-md-8'>
                     <div className='input-group'>
                       <span className='input-group-text'>
-                        {intl.formatMessage({id: 'FORM.INPUT.NAME.WORKDAYS'})}
+                        {intl.formatMessage({ id: 'FORM.INPUT.NAME.WORKDAYS' })}
                       </span>
                       <input
                         type='number'
@@ -252,7 +245,7 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                         }}
                         className={clsx(
                           'form-control form-control-solid py-2 bg-transparent rounded fw-normal',
-                          {'is-invalid': !props.touched.shift_time && props.errors.shift_time},
+                          { 'is-invalid': !props.touched.shift_time && props.errors.shift_time },
                           {
                             'is-valid': data.shift_time && !props.errors.shift_time,
                           }
@@ -274,7 +267,7 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                           data-validator='notEmpty'
                           className='fv-help-block'
                         >
-                          {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
+                          {intl.formatMessage({ id: 'FORM.INPUT.VALIDATION.REQUIRED' })}
                         </div>
                       </div>
                     )}
@@ -282,7 +275,7 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                   <div className='col-md-4 mt-3 ps-md-5'>
                     <span className='fs-4 fw-bold required'>
                       {intl.formatMessage(
-                        {id: 'FORM.INPUT.NAME.HOURS_PER_WEEK'},
+                        { id: 'FORM.INPUT.NAME.HOURS_PER_WEEK' },
                         {
                           hours:
                             data.workdays && data.shift_time
@@ -314,9 +307,8 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
                       </div>
                     </div>
                   )}
-
                   <label className='form-check-label' htmlFor='recurrent'>
-                    {intl.formatMessage({id: 'FORM.INPUT.NAME.ADMINISTRATOR'})}
+                    {intl.formatMessage({ id: 'FORM.INPUT.NAME.ADMINISTRATOR' })}
                   </label>
                 </div>
               </div>
@@ -327,5 +319,4 @@ const Step3 = ({data, updateData, hasError, props}: StepProps) => {
     </>
   )
 }
-
-export {Step3}
+export { Step3 }
