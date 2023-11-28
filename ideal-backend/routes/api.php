@@ -27,3 +27,16 @@ Route::group([
     Route::get('me', [AuthController::class, 'me']);
 
 });
+
+Route::controller(UserController::class)->prefix('usuarios')->as('users.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/select', 'select')->name('index');
+    Route::post('/novo', 'store')->name('store');
+    Route::post('/verify_email','verify_email')->name('verify_email');
+
+    Route::prefix('/{userId}')->group(function () {
+        Route::get('/', 'getUserById')->name('getUserById');
+        Route::post('/editar', 'update')->name('update');
+        Route::delete('/excluir', 'delete')->name('delete');
+    });
+});
