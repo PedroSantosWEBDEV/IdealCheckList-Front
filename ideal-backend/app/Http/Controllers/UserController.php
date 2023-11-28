@@ -31,7 +31,7 @@ class UserController extends Controller
     public function index()
     {
         // print_r($this->middleware('jwt.verify'));die;
-        $userServices = $this->userService->findUsers(['*'], ['Admin', 'User'])->with(['instance', 'workdays']);
+        $userServices = $this->userService->findUsers(['*'], ['Admin', 'User'])->with(['instance']);
 
         return response()->json(['users' => $userServices, 'message' => 'Dados do Usuario'], 200);
     }

@@ -9,7 +9,7 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
   // console.log(props)
   // console.log(data.cost_hour)
   return (
-    <div className='pb-5' data-kt-stepper-element='content'>
+    <div className='pb-5 mt-20' data-kt-stepper-element='content'>
       <div className='w-100'>
         <div className='row justify-content-between'>
           <div className='col-md-6'>
@@ -33,24 +33,45 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
               />
             </div>
             <div className='fv-row mb-3'>
-              <label htmlFor='job_role' className='d-flex align-items-center fs-5 fw-semibold mb-2'>
-                {intl.formatMessage({ id: 'FORM.INPUT.NAME.JOB_ROLE' })}
-              </label>
-              <input
-                type='text'
-                className='form-control form-control-lg form-control-solid'
-                name='job_role'
-                id='job_role'
-                disabled={currentUser?.type_id === 1 ? false : true}
-                value={data.job_role ?? ''}
-                onChange={(e) =>
-                  updateData({
-                    phone: data.phone,
-                    job_role: e.target.value,
-                    password: data.password,
-                  })
-                }
-              />
+            <label htmlFor="project-client" className='d-flex align-items-center fs-5 fw-semibold mb-2'>
+            <span className='required'>{intl.formatMessage({id: 'FORM.INPUT.NAME.TYPE_USER'})}</span>
+            <i
+              className='fas fa-exclamation-circle ms-2 fs-7'
+              data-bs-toggle='tooltip'
+              title={intl.formatMessage({id: 'FORM.INPUT.TOOLTIP.TYPE_USER'})}
+            ></i>
+          </label>
+          <select
+            className='form-select form-select-solid'
+            data-kt-select2='true'
+            data-placeholder='Select option'
+            data-allow-clear='true'
+            name='project-client'
+            id='project-client'
+            placeholder=''
+            autoComplete='off'
+            value={data.id }
+            onChange={(e: any) => {
+              updateData({
+                id: e.target.value
+              })
+            }}
+          >
+            <option value="">{intl.formatMessage({id: 'FORM.INPUT.TOOLTIP.TYPE_USER'})}</option>
+            {/* {data.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}            */}
+            
+          </select>
+          {!data.id && hasError && (
+            <div className='fv-plugins-message-container'>
+              <div data-field='project-client' data-validator='notEmpty' className='fv-help-block'>
+                {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
+              </div>
+            </div>
+          )}
             </div>
             <div className='fv-row mb-3'>
               <label htmlFor='password' className='d-flex align-items-center fs-5 fw-semibold mb-2'>

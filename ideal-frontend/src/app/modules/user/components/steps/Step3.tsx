@@ -8,7 +8,7 @@ const Step3 = ({ data, updateData, hasError, props }: StepProps) => {
   return (
     <>
       {/*begin::Step 3 */}
-      <div className='pb-5' data-kt-stepper-element='content'>
+      <div className='pb-5 mt-20' data-kt-stepper-element='content'>
         <div className='w-100'>
           <div className='fv-row mt-5'>
             <div className='col-md-12'>
