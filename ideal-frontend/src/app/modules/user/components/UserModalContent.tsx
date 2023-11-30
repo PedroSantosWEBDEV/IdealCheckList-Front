@@ -1,19 +1,22 @@
-import {FC, useEffect, useState} from 'react'
+import React, {FC, useEffect, useRef, useState} from 'react'
+import {Step1} from './steps/Step1'
+import {Step2} from './steps/Step2'
+import {Step3} from './steps/Step3'
+import {Step4} from './steps/Step4'
+import {Step5} from './steps/Step5'
 import {ID, KTSVG, isNotEmpty} from '../../../../_metronic/helpers'
-import {useIntl} from 'react-intl'
-import {ResponseUser, User} from './core/_models'
-import { StepperComponent } from '../../../../_metronic/assets/ts/components'
+import {StepperComponent} from '../../../../_metronic/assets/ts/components'
+import {Formik, Form, FormikValues} from 'formik'
 import * as Yup from 'yup'
-import {useQueryResponse} from './core/QueryResponseProvider'
-import {useMutation, useQueryClient} from 'react-query'
-import {Step1} from '../components/steps/Step1'
-import {Step2} from '../components/steps/Step2'
-import {Step3} from '../components/steps/Step3'
-import {createUser, getEmailValid, updateUser} from './core/_requests'
+import {createAccountSchemas, ICreateAccount, inits} from './CreateAccountWizardHelper'
+import { ResponseUser, User } from './core/_models'
+import { useAuth } from '../../auth'
+import { useIntl } from 'react-intl'
+import { useQueryResponse } from './core/QueryResponseProvider'
+import { useMutation, useQueryClient } from 'react-query'
+import { UsersListLoading } from './loading/UsersListLoading'
 import Swal from 'sweetalert2'
-import {UsersListLoading} from './loading/UsersListLoading'
-import {Formik} from 'formik'
-import { useAuth } from '../../../../app/modules/auth'
+import { createUser, getEmailValid, updateUser } from './core/_requests'
 
 type Props = {
   userId: ID
@@ -22,7 +25,6 @@ type Props = {
   stepperRef: React.MutableRefObject<HTMLDivElement | null>
 }
 const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
-  // debugger;
   const {currentUser} = useAuth()
   const intl = useIntl()
   const [data, setData] = useState<User>(user.users)
@@ -54,14 +56,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
         .required(intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})),
     }),
   ]
-
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
-
   const updateData = (fieldsToUpdate: Partial<User>) => {
     const updatedData = {...data, ...fieldsToUpdate}
     setData(updatedData)
   }
-
   const checkUserBasic = () => {
     // debugger
     if (!data.name || !data.email) {
@@ -69,7 +68,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
     }
     return true
   }
-
   const emailValid = useMutation(() =>
     getEmailValid(data).then((response) => {
       // debugger;
@@ -95,7 +93,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
       }
     })
   )
-
   const checkUserAdvanced = (): boolean => {
     if (!data.id) {
       if (!data.password || !data.cost_hour) {
@@ -109,7 +106,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
       return true
     }
   }
-
   const checkUserWorkDays = (): boolean => {
     // debugger;
     const shift_time = isNotEmpty(data.shift_time)
@@ -117,7 +113,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
     if (!shift_time || work_days) {
       return false
     }
-
     return true
   }
 
@@ -132,13 +127,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
     }
     stepper.current.goPrev()
   }
-
   const nextStep = async () => {
     setHasError(false)
     if (!stepper.current) {
       return
     }
-
     if (stepper.current.getCurrentStepIndex() === 1) {
       if (!data.id) {
         if (await emailValid.mutateAsync()) {
@@ -192,7 +185,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
       })
     },
   })
-
   const update = useMutation(() => updateUser(data), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: (response) => {
@@ -261,7 +253,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
       <div className='modal-header'>
         <h2>{intl.formatMessage({id: 'MODAL.TITLE.USER'})}</h2>
       </div>
-
       <div className='modal-body py-lg-12 px-lg-12'>
         {/*begin::Stepper */}
         <div
@@ -284,13 +275,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                       <span className='stepper-number'>1</span>
                     </div>
                     {/* end::Icon*/}
-
                     {/* begin::Label*/}
                     <div className='stepper-label'>
                       <h3 className='stepper-title'>
                         {intl.formatMessage({id: 'FORM.STEP.NAME.BASE_DETAILS'})}
                       </h3>
-
                       <div className='stepper-desc'>
                         {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.BASE_DETAILS'})}
                       </div>
@@ -298,13 +287,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                     {/* end::Label*/}
                   </div>
                   {/* end::Wrapper*/}
-
                   {/* begin::Line*/}
                   <div className='stepper-line h-40px'></div>
                   {/* end::Line*/}
                 </div>
                 {/* end::Step 1*/}
-
                 {/* begin::Step 2*/}
                 <div className='stepper-item' data-kt-stepper-element='nav'>
                   {/* begin::Wrapper*/}
@@ -315,13 +302,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                       <span className='stepper-number'>2</span>
                     </div>
                     {/* begin::Icon*/}
-
                     {/* begin::Label*/}
                     <div className='stepper-label'>
                       <h3 className='stepper-title'>
                         {intl.formatMessage({id: 'FORM.STEP.NAME.ADVANCED_DETAILS'})}
                       </h3>
-
                       <div className='stepper-desc'>
                         {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.ADVANCED_DETAILS'})}
                       </div>
@@ -329,13 +314,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                     {/* begin::Label*/}
                   </div>
                   {/* end::Wrapper*/}
-
                   {/* begin::Line*/}
                   {currentUser?.type_id === 1 ? <div className='stepper-line h-40px'></div> : ''}
                   {/* end::Line*/}
                 </div>
                 {/* end::Step 2*/}
-
                 {/* begin::Step 3*/}
                 {currentUser?.type_id === 1 ? <div className='stepper-item' data-kt-stepper-element='nav'>
                   {/* begin::Wrapper*/}
@@ -346,13 +329,11 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                       <span className='stepper-number'>3</span>
                     </div>
                     {/* end::Icon*/}
-
                     {/* begin::Label*/}
                     <div className='stepper-label'>
                       <h3 className='stepper-title'>
                         {intl.formatMessage({id: 'FORM.STEP.NAME.WORDAY'})}
                       </h3>
-
                       <div className='stepper-desc'>
                         {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.CONFIG_WORK_DAYS'})}
                       </div>
@@ -404,7 +385,6 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
                           className='svg-icon-3 ms-2 me-0'
                         />
                       </button>
-
                       <button
                         type='button'
                         className='btn btn-lg btn-primary'
@@ -428,6 +408,85 @@ const UserModalContent: FC<Props> = ({userId, user, stepperRef, stepper}) => {
       </div>
       {isSubmitting && <UsersListLoading />}
     </>
+    // <div className='card'>
+    //   <div className='card-body'>
+    //     <div
+    //       ref={stepperRef}
+    //       className='stepper stepper-links d-flex flex-column pt-15'
+    //       id='kt_create_account_stepper'
+    //     >
+    //       <div className='stepper-nav mb-5'>
+    //       <div className='stepper-item current' data-kt-stepper-element='nav'>
+    //           <h3 className='stepper-title'>Account Info</h3>
+    //         </div>
+
+    //         <div className='stepper-item' data-kt-stepper-element='nav'>
+    //           <h3 className='stepper-title'>Business Info</h3>
+    //         </div>
+
+    //         <div className='stepper-item' data-kt-stepper-element='nav'>
+    //           <h3 className='stepper-title'>Billing Details</h3>
+    //         </div>
+
+    //         <div className='stepper-item' data-kt-stepper-element='nav'>
+    //           <h3 className='stepper-title'>Completed</h3>
+    //         </div>
+    //       </div>
+
+    //       <Formik validationSchema={currentSchema} initialValues={initValues} onSubmit={submitStep}>
+    //         {() => (
+    //           <Form className='mx-auto mw-600px w-100 pt-15 pb-10' id='kt_create_account_form'>
+    //             <div className='current' data-kt-stepper-element='content'>
+    //               <Step2 />
+    //             </div>
+
+    //             <div data-kt-stepper-element='content'>
+    //               <Step3 />
+    //             </div>
+
+    //             <div data-kt-stepper-element='content'>
+    //               <Step4 />
+    //             </div>
+
+    //             <div data-kt-stepper-element='content'>
+    //               <Step5 />
+    //             </div>
+
+    //             <div className='d-flex flex-stack pt-15'>
+    //               <div className='mr-2'>
+    //                 <button
+    //                   onClick={prevStep}
+    //                   type='button'
+    //                   className='btn btn-lg btn-light-primary me-3'
+    //                   data-kt-stepper-action='previous'
+    //                 >
+    //                   <KTSVG
+    //                     path='/media/icons/duotune/arrows/arr063.svg'
+    //                     className='svg-icon-4 me-1'
+    //                   />
+    //                   Back
+    //                 </button>
+    //               </div>
+
+    //               <div>
+    //                 <button type='submit' className='btn btn-lg btn-primary me-3'>
+    //                   <span className='indicator-label'>
+    //                     {!isSubmitButton && 'Continue'}
+    //                     {isSubmitButton && 'Submit'}
+    //                     <KTSVG
+    //                       path='/media/icons/duotune/arrows/arr064.svg'
+    //                       className='svg-icon-3 ms-2 me-0'
+    //                     />
+    //                   </span>
+    //                 </button>
+    //               </div>
+    //             </div>
+    //           </Form>
+    //         )}
+    //       </Formik>
+    //     </div>
+    //   </div>
+    // </div>
   )
 }
 

@@ -10,29 +10,20 @@ import {
   WithChildren,
 } from '../../../../../_metronic/helpers'
 import {useQueryResponse, useQueryResponseData} from './QueryResponseProvider'
-
 const ListViewContext = createContext<ListViewContextProps>(initialListView)
-
 const ListViewProvider: FC<WithChildren> = ({children}) => {
   const [selected, setSelected] = useState<Array<ID>>(initialListView.selected)
   const [itemIdForUpdate, setItemIdForUpdate] = useState<ID>(initialListView.itemIdForUpdate)
-  const [taskIdForUpdate, setTaskIdForUpdate] = useState<ID>(initialListView.taskIdForUpdate)
-  const [holidayIdForUpdate, setHolidayIdForUpdate] = useState<ID>(initialListView.holidayIdForUpdate)
   const {isLoading} = useQueryResponse()
   const data = useQueryResponseData()
   const disabled = useMemo(() => calculatedGroupingIsDisabled(isLoading, data), [isLoading, data])
   const isAllSelected = useMemo(() => calculateIsAllDataSelected(data, selected), [data, selected])
-
   return (
     <ListViewContext.Provider
       value={{
         selected,
         itemIdForUpdate,
         setItemIdForUpdate,
-        taskIdForUpdate, 
-        setTaskIdForUpdate,
-        holidayIdForUpdate,
-        setHolidayIdForUpdate,
         disabled,
         isAllSelected,
         onSelect: (id: ID) => {
@@ -50,7 +41,5 @@ const ListViewProvider: FC<WithChildren> = ({children}) => {
     </ListViewContext.Provider>
   )
 }
-
 const useListView = () => useContext(ListViewContext)
-
 export {ListViewProvider, useListView}

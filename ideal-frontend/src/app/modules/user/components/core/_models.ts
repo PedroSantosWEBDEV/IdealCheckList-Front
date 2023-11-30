@@ -1,6 +1,5 @@
 import {FormikProps } from 'formik'
 import {ID, Response} from '../../../../../_metronic/helpers'
-
 export type User = {
   id: number
   avatar: string
@@ -22,15 +21,12 @@ export type User = {
   shift_time: string
   creator_id: string 
 }
-
 export type ResponseUser = {
   users: User
   message: string
   errors: boolean
 }
-
 export type UsersQueryResponse = Response<Array<User>>
-
 export const initialUser: User = {
   id: 1,
   username: '',
@@ -52,7 +48,6 @@ export const initialUser: User = {
   instance_id: '',
   creator_id: ''
 }
-
 export type StepProps = {
   data: User,
   updateData: (fieldsToUpdate: Partial<User>) => void,
