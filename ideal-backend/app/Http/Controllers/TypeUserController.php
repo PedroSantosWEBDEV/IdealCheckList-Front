@@ -19,7 +19,7 @@ class TypeUserController extends Controller
         $roles = $user->getRoleNames();
         $permissionNames = $user->getPermissionNames();
 
-        return response()->json(['type' => $roles, 'message' => 'Dados do Usuario'], 200);
+        return response()->json(['type' => $roles,'permission' =>$permissionNames, 'message' => 'Dados do Usuario'], 200);
     }
 
     public function store(Request $request)

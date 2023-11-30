@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-
+use Spatie\Permission\Models\Permission;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user->assignRole('Admin');
+        $user->givePermissionTo(Permission::all()->pluck('id'));
 
         // \App\Models\User::factory(10)->create()->each(function ($user) {
         //     $user->assignRole('User');
