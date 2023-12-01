@@ -1,10 +1,14 @@
 import { useIntl } from 'react-intl'
 import { StepProps } from '../core/_models'
 import clsx from 'clsx'
+import { ErrorMessage } from 'formik/dist/ErrorMessage'
+import { Field } from 'formik/dist/Field'
 
-const Step3: FC = () => {
+const Step3 = ({ data, updateData, hasError, props }: StepProps) => {
+  const intl = useIntl()
   return (
-    <div className='w-100'>
+    <>
+      <div className='w-100'>
       <div className='pb-10 pb-lg-12'>
         <h2 className='fw-bolder text-dark'>Business Details</h2>
 
@@ -84,6 +88,7 @@ const Step3: FC = () => {
         <div className='text-danger mt-2'>
           <ErrorMessage name='businessEmail' />
         </div>
+      </div>
       </div>
     </>
   )

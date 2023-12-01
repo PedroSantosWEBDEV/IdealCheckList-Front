@@ -3,6 +3,10 @@ import clsx from 'clsx'
 import { StepProps } from '../core/_models'
 // import { InputCurrency } from '../../../../../_metronic/helpers'
 import { useAuth } from '../../../auth'
+import { Field } from 'formik/dist/Field'
+import { ErrorMessage } from 'formik/dist/ErrorMessage'
+import { KTSVG } from '../../../../../_metronic/helpers/components/KTSVG'
+
 const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
   const intl = useIntl()
   const { currentUser } = useAuth()
