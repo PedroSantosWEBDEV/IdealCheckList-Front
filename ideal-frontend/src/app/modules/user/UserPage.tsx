@@ -1,6 +1,6 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../_metronic/layout/core'
-import {NewUser} from './components/NewUser'
+import {PageTitle} from '../../../_metronic/layout/core'
+import { UsersListWrapper } from './components/user-list/UserList'
 
 
 const UserPage = () => (
@@ -11,7 +11,8 @@ const UserPage = () => (
         element={
           <>
             <PageTitle>Novo Usuario</PageTitle>
-            <NewUser userId={undefined} />
+            {/* <NewUser userId={undefined} /> */}
+            <UsersListWrapper/>
           </>
         }
       />
