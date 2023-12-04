@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Auth;
 class TypeUserController extends Controller
 {
     public function __construct()
@@ -25,12 +25,16 @@ class TypeUserController extends Controller
     public function store(Request $request)
     {
 
-        $permission = $request->permission;
+        if(is_array($request->permission)){
+        $permission = Permission::find($request->permission);
+        }else{
+            $permission = $request->permission;
+        }
         $role = $request->role;
-        $permission = Permission::create(['name' => $permission]);
         $role = Role::create(['name' => $role]);
+        // $role = Role::create(['name' => $role]);
         $role->givePermissionTo($permission);
-        $permission->assignRole($role);
+        // $permission->assignRole($role);
         return response()->json(['role' => $permission, 'message' => 'Tipo de usuario criado!'], 200);
     }
 }
