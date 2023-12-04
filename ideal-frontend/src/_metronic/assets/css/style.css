@@ -1,0 +1,82 @@
+.fc .fc-scrollgrid-section-sticky > * {
+  background-color: var(--kt-body-bg) !important;
+}
+.gantt-wrapper .calendar rect,
+.gantt-wrapper .grid .gridBody .rows rect {
+  fill: var(--kt-body-bg);
+}
+.gantt-wrapper .calendar text {
+  fill: var(--kt-text-gray-900);
+}
+.gantt-wrapper .grid .gridBody .rows rect:nth-child(even) {
+  fill: var(--kt-gray-200);
+}
+.gantt-wrapper .calendar rect,
+.gantt-wrapper .grid .gridBody .rowLines line,
+.gantt-wrapper .grid .gridBody .ticks line {
+  stroke: var(--kt-gray-300);
+  stroke-width: 1.4;
+}
+.gantt-wrapper .handleGroup > g {
+  height: 36px;
+  display: block;
+  overflow: hidden;
+}
+@media (min-width: 375px) {
+  #search {
+    width: 275px;
+  }
+}
+
+@media (min-width: 425px) {
+  #new_folder {
+    width: 150px;
+  }
+}
+
+@media (min-width: 320px) {
+  #combo-box-demo {
+    width: 200px;
+  }
+}
+
+[data-theme='dark'] .ck.ck-editor__main .ck-editor__editable {
+  background: #262630;
+}
+
+[data-theme='dark'] .css-segi59 {
+  color: #fff;
+}
+
+[data-theme='dark'] .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  color: #fff;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+[data-theme='dark'] #asynchronous-demo {
+  color: #fff;
+}
+
+#custom-image{
+width: 100%;
+height: 200px;  
+object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  #custom-image {
+    height: 100px;
+  }
+}
+
+.project-richtext-container .ck-content {
+  min-height: 500px;
+}

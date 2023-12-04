@@ -27,7 +27,7 @@ const PageTitle = () => {
       {/* begin::Title */}
       {config.app?.pageTitle?.display && pageTitle && (
         <h1
-          className={clsx('page-heading d-flex text-dark fw-bold fs-3 my-0', {
+          className={clsx('page-heading d-flex text-dark fw-bold fs-1 my-0', {
             'flex-column justify-content-center': appPageTitleDirection,
             'align-items-center': !appPageTitleDirection,
           })}

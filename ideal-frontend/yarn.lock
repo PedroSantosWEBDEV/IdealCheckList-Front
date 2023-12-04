@@ -1031,6 +1031,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.23.4":
+  version "7.23.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.5.tgz#11edb98f8aeec529b82b211028177679144242db"
+  integrity sha512-NdUTHcPe4C99WxPub+K9l9tK5/lV4UXIoaHSYgzco9BCyjKAAwzdBI+wWtYqHt7LJdbo74ZjRPJgzVweq1sz0w==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.16.7", "@babel/template@^7.3.3":
   version "7.16.7"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.16.7.tgz"
@@ -1620,6 +1627,13 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.18.tgz#f8b187dc89756fa5c0b7d15aea537a6f73f0c2d8"
   integrity sha512-yFpF35fEVDV81nVktu0BE9qn2dD/chs7PsQhlyaV3EnTeZi9RZBuvoEfRym1/jmhJ2tcfeWXiRuHG942mQXJJQ==
 
+"@mui/icons-material@^5.14.19":
+  version "5.14.19"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.19.tgz#6e0f4e9d89f99517d3c0ee65dee7ac97753755af"
+  integrity sha512-yjP8nluXxZGe3Y7pS+yxBV+hWZSsSBampCxkZwaw+1l+feL+rfP74vbEFbMrX/Kil9I/Y1tWfy5bs/eNvwNpWw==
+  dependencies:
+    "@babel/runtime" "^7.23.4"
+
 "@mui/material@^5.14.18":
   version "5.14.18"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.18.tgz#d0a89be3e27afe90135d542ddbf160b3f34e869c"
@@ -2149,6 +2163,11 @@
   integrity sha512-5kPLG5BKpWYkw/LVOGWpiq3nEVqxiN32rTgI53Sk12/xHFQ2rG3ehI9IO+O3W2QoKeyB92dJkoka8SUm6BX1pA==
   dependencies:
     "@types/node" "*"
+
+"@types/intl@^1.2.0":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/intl/-/intl-1.2.2.tgz#e39cd70968ad14b12cede5db14e558df24b33272"
+  integrity sha512-A4g5UEAA9c56JWKhc4LSJ9vzDMztjxVXDAXtVK4EbS3hW1V7Sz05VfcTgDQIvkOYJp1NqH222eg62P72HwltfQ==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
@@ -8204,6 +8223,13 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.npmjs.org/relateurl/-/relateurl-0.2.7.tgz"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
+
+remask@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/remask/-/remask-1.2.2.tgz#92f64bbd02923595a7a56748000a4bbd4ac694d6"
+  integrity sha512-zUNAiG1mYewmktEKpkvcmpDeP+04CzlWtoim7C9q/dnk7tgqtHoG9GIHjCH3I9fff7O41BLqOjRuX07s/hzF7w==
+  dependencies:
+    "@types/intl" "^1.2.0"
 
 remove-accents@0.4.2:
   version "0.4.2"

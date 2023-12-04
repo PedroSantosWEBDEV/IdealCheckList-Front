@@ -22,28 +22,28 @@ const SidebarLogo = () => {
         {config.layoutType === 'dark-sidebar' ? (
           <img
             alt='Logo'
-            src={toAbsoluteUrl('/media/logos/ideal-logo.png')}
-            className='h-75px app-sidebar-logo-default'
+            src={toAbsoluteUrl('/media/logos/taskrush.svg')}
+            className='h-45px app-sidebar-logo-default'
           />
         ) : (
           <>
             <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/logos/ideal-logo.png')}
-              className='h-25px app-sidebar-logo-default theme-light-show'
+              alt='TaskRush'
+              src={toAbsoluteUrl('/media/logos/taskrush.svg')}
+              className='h-45px app-sidebar-logo-default theme-light-show'
             />
             <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/logos/default-dark.svg')}
-              className='h-25px app-sidebar-logo-default theme-dark-show'
+              alt='TaskRush'
+              src={toAbsoluteUrl('/media/logos/taskrush.svg')}
+              className='h-45px app-sidebar-logo-default theme-dark-show'
             />
           </>
         )}
 
         <img
-          alt='Logo'
-          src={toAbsoluteUrl('/media/logos/default-small.svg')}
-          className='h-20px app-sidebar-logo-minimize'
+          alt='TaskRush'
+          src={toAbsoluteUrl('/media/logos/taskrush_icon.svg')}
+          className='h-45px app-sidebar-logo-minimize'
         />
       </Link>
 

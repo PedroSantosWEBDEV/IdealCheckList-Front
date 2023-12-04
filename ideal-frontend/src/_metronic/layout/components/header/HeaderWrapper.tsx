@@ -17,7 +17,7 @@ export function HeaderWrapper() {
       <div
         id='kt_app_header_container'
         className={clsx(
-          'app-container flex-lg-grow-1',
+          'app-container flex-lg-grow-1 w-100',
           classes.headerContainer.join(' '),
           config.app?.header?.default?.containerClass
         )}
@@ -36,7 +36,7 @@ export function HeaderWrapper() {
               </div>
               <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
                 <Link to='/dashboard' className='d-lg-none'>
-                  <img alt='Logo' src='./assets/media/logos/default-small.svg' className='h-30px' />
+                  <img alt='Logo' src='/media/logos/taskrush_icon.svg' className='h-30px' />
                 </Link>
               </div>
             </div>
@@ -49,19 +49,19 @@ export function HeaderWrapper() {
               {config.layoutType !== 'dark-header' ? (
                 <img
                   alt='Logo'
-                  src={toAbsoluteUrl('/media/logos/default-dark.svg')}
+                  src={toAbsoluteUrl('/media/logos/taskrush.svg')}
                   className='h-20px h-lg-30px app-sidebar-logo-default'
                 />
               ) : (
                 <>
                   <img
                     alt='Logo'
-                    src={toAbsoluteUrl('/media/logos/default.svg')}
+                    src={toAbsoluteUrl('/media/logos/taskrush.svg')}
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-light-show'
                   />
                   <img
                     alt='Logo'
-                    src={toAbsoluteUrl('/media/logos/default-dark.svg')}
+                    src={toAbsoluteUrl('/media/logos/taskrush_icon.svg')}
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-dark-show'
                   />
                 </>
@@ -77,7 +77,7 @@ export function HeaderWrapper() {
           {config.app.header.default?.content === 'menu' &&
             config.app.header.default.menu?.display && (
               <div
-                className='app-header-menu app-header-mobile-drawer align-items-stretch'
+                className='app-header-menu app-header-mobile-drawer align-items-stretch bg-light'
                 data-kt-drawer='true'
                 data-kt-drawer-name='app-header-menu'
                 data-kt-drawer-activate='{default: true, lg: false}'
@@ -89,7 +89,7 @@ export function HeaderWrapper() {
                 data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
                 data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}"
               >
-                <Header />
+                {/* <Header /> */}
               </div>
             )}
           <Navbar />
