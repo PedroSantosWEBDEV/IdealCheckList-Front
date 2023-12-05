@@ -10,7 +10,7 @@ export type User = {
   phone: string
   job_role: string
   instance_id: string
-  workdays: Array<number>
+  types: Array<string>
   administrator: number
   vacation?: boolean
   edit_costs?: boolean
@@ -39,7 +39,7 @@ export const initialUser: User = {
   phone: "",
   avatar: '',
   password: '',
-  workdays: [],
+  types: [],
   cost_hour: '0',
   administrator: 0,
   vacation: false,

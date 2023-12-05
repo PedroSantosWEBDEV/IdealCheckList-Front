@@ -1,17 +1,17 @@
 import {FC, useState} from 'react'
 import {useQuery} from 'react-query'
 import {isNotEmpty, QUERIES} from '../../../helpers'
-import {CompanyModalContent} from './CompanyModalContent'
-import {getCompanyById} from './core/_requests'
+import {TypeModalContent} from './TypeModalContent'
+import {getTypeById} from './core/_requests'
 import {ID} from '../../../helpers'
-import {CompanyListLoading} from './loading/CompanyListLoading'
+import {TypeListLoading} from './loading/TypeListLoading'
 
 type Props = {
   id: ID
   handleClose: () => void | undefined
 }
 
-const CompanyModalContentWrapper: FC<Props> = ({
+const TypeModalContentWrapper: FC<Props> = ({
   id,
   handleClose,
 }) => {
@@ -22,14 +22,14 @@ const CompanyModalContentWrapper: FC<Props> = ({
   const {
     isLoading,
     refetch,
-    data: company,
+    data: type,
     error,
   } = useQuery(
-    `${QUERIES.COMPANY_LIST}-COMPANY-${itemIdForUpdate}`,
+    `${QUERIES.TYPE_LIST}-TYPE-${itemIdForUpdate}`,
     () => {
       // return getTaskById(itemIdForUpdate)
       // debugger;
-      return getCompanyById(itemIdForUpdate)
+      return getTypeById(itemIdForUpdate)
     },
     {
       cacheTime: 0,
@@ -44,11 +44,10 @@ const CompanyModalContentWrapper: FC<Props> = ({
   if (!itemIdForUpdate) {
     // console.log("AQUII")
     return (
-      <CompanyModalContent
-        handleClose={handleClose} isCompanyLoading={isLoading} company={{
-          companys: {
+      <TypeModalContent
+        handleClose={handleClose} isTypeLoading={isLoading} type={{
+          types: {
             id: undefined,
-            total_projects: 0,
           },
           message: '',
           errors: false
@@ -56,18 +55,18 @@ const CompanyModalContentWrapper: FC<Props> = ({
     )
   }
 
-  if (!isLoading && !error && company) {
+  if (!isLoading && !error && type) {
     // console.log('update')
     return (
-      <CompanyModalContent
+      <TypeModalContent
         handleClose={handleClose}
-        company={company} isCompanyLoading={isLoading}/>
+        type={type} isTypeLoading={isLoading}/>
     )
   } else {
-    return <CompanyListLoading />
+    return <TypeListLoading />
   }
 
   return null
 }
 
-export {CompanyModalContentWrapper}
+export {TypeModalContentWrapper}

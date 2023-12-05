@@ -1,6 +1,6 @@
 const QUERIES = {
   USERS_LIST: 'users-list',
-  COMPANY_LIST: 'company-list',
+  TYPE_LIST: 'type-list',
   CONTRACTS_LIST: 'contracts-list',
   TEAMS_LIST: 'teams-list',
   PROJECTS_LIST: 'projects-list',

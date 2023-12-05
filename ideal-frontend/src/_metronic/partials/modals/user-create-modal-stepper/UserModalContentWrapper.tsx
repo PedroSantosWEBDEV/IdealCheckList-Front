@@ -58,7 +58,7 @@ const UserModalContentWrapper: FC<Props> = ({
             id: 0,
             cost_hour: '0',
             avatar: '',
-            workdays: [],
+            types: [],
             shift_time: '',
             name: '',
             username: '',

@@ -1,14 +1,14 @@
 import {Modal} from 'react-bootstrap'
 import {ID} from '../../../helpers'
-import {CompanyModalContentWrapper} from './CompanyModalContentWrapper'
+import {TypeModalContentWrapper} from './TypeModalContentWrapper'
 
 type Props = {
   show: boolean
   handleClose: () => void | undefined
-  companyId: ID
+  typeId: ID
 }
 
-const CompanyModal: React.FC<Props> = ({show, handleClose, companyId}) => {
+const TypeModal: React.FC<Props> = ({show, handleClose, typeId}) => {
   //  debugger;
   return (
     <Modal
@@ -20,9 +20,9 @@ const CompanyModal: React.FC<Props> = ({show, handleClose, companyId}) => {
     onHide={handleClose}
     backdrop={true}
   >
-      <CompanyModalContentWrapper id={companyId} handleClose={handleClose} />
+      <TypeModalContentWrapper id={typeId} handleClose={handleClose} />
     </Modal>
   )
 }
 
-export {CompanyModal}
+export {TypeModal}

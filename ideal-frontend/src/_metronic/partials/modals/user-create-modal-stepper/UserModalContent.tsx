@@ -8,7 +8,6 @@ import {useQueryResponse} from './core/QueryResponseProvider'
 import {useMutation, useQueryClient} from 'react-query'
 import {Step1} from './steps/Step1'
 import {Step2} from './steps/Step2'
-import {Step3} from './steps/Step3'
 import {createUser, getEmailValid, updateUser} from './core/_requests'
 import Swal from 'sweetalert2'
 import {UsersListLoading} from './loading/UsersListLoading'
@@ -111,16 +110,16 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
     }
   }
 
-  const checkUserWorkDays = (): boolean => {
-    // debugger;
-    const shift_time = isNotEmpty(data.shift_time)
-    const work_days = data.workdays.length > 0 ? false : true
-    if (!shift_time || work_days) {
-      return false
-    }
+  // const checkUserWorkDays = (): boolean => {
+  //   // debugger;
+  //   const shift_time = isNotEmpty(data.shift_time)
+  //   const work_days = data.workdays.length > 0 ? false : true
+  //   if (!shift_time || work_days) {
+  //     return false
+  //   }
 
-    return true
-  }
+  //   return true
+  // }
 
   const prevStep = () => {
     if (!stepper.current) {
@@ -231,11 +230,7 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
     if (!stepper.current) {
       return
     }
-    if (stepper.current.getCurrentStepIndex() === 3) {
-      if (!checkUserWorkDays()) {
-        setHasError(true)
-        return
-      } else {
+    if (stepper.current.getCurrentStepIndex() === 2) {
         // data.cost_hour = data.cost_hour.replace('.', '').replace(',', '.')
         if (userId) {
           setSubmitting(true)
@@ -244,7 +239,6 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
           setSubmitting(true)
           return create.mutateAsync()
         }
-      }
     }else {
       if (userId) {
         setSubmitting(true)
@@ -335,39 +329,8 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
                     {/* begin::Label*/}
                   </div>
                   {/* end::Wrapper*/}
-
-                  {/* begin::Line*/}
-                  {currentUser?.type_id === 1 ? <div className='stepper-line h-40px'></div> : ''}
-                  {/* end::Line*/}
                 </div>
                 {/* end::Step 2*/}
-
-                {/* begin::Step 3*/}
-                {currentUser?.type_id === 1 ? <div className='stepper-item' data-kt-stepper-element='nav'>
-                  {/* begin::Wrapper*/}
-                  <div className='stepper-wrapper'>
-                    {/* begin::Icon*/}
-                    <div className='stepper-icon w-40px h-40px'>
-                      <i className='stepper-check fas fa-check'></i>
-                      <span className='stepper-number'>3</span>
-                    </div>
-                    {/* end::Icon*/}
-
-                    {/* begin::Label*/}
-                    <div className='stepper-label'>
-                      <h3 className='stepper-title'>
-                        {intl.formatMessage({id: 'FORM.STEP.NAME.WORDAY'})}
-                      </h3>
-
-                      <div className='stepper-desc'>
-                        {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.CONFIG_WORK_DAYS'})}
-                      </div>
-                    </div>
-                    {/* end::Label*/}
-                  </div>
-                  {/* end::Wrapper*/}
-                </div> : ''}
-                {/* end::Step 3*/}
               </div>
               {/* end::Nav*/}
             </div>
@@ -381,7 +344,6 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
                 <form noValidate id='kt_modal_edit_project_form'>
                   <Step1 data={data} updateData={updateData} hasError={hasError} props={props} />
                   <Step2 data={data} updateData={updateData} hasError={hasError} props={props} />
-                  {currentUser?.type_id === 1 ? <Step3 data={data} updateData={updateData} hasError={hasError} props={props} /> : ''}
                   <div className='d-flex flex-stack pt-10'>
                     <div className='me-2'>
                       <button

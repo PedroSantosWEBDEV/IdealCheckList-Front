@@ -16,10 +16,14 @@ class TypeUserController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $roles = $user->getRoleNames();
-        $permissionNames = $user->getPermissionNames();
+        // $permissionNames = $user->getPermissionNames();
+        if($user->hasPermissionTo('Register User')){
+            $roles = Role::all();
+        }else{
+            return response()->json(['message' => 'Voce nao tem permissao!'], 200);
+        }
 
-        return response()->json(['type' => $roles,'permission' =>$permissionNames, 'message' => 'Dados do Usuario'], 200);
+        return response()->json(['data' => $roles, 'message' => 'Fucoes de Usuario'], 200);
     }
 
     public function store(Request $request)

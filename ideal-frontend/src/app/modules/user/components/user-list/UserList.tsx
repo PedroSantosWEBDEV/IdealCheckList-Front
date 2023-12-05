@@ -6,10 +6,10 @@ import {QueryResponseProvider, useQueryResponseData, useQueryResponse} from '../
 import {UsersListHeader} from './components/header/UsersListHeader'
 import {UsersTable} from './table/UsersTable'
 import {UsersCard} from './card/UsersCard'
-// import {UserCreateModalStepper} from '../user-create-modal-stepper/UserCreateModalStepper'
 import {KTCard} from '../../../../../_metronic/helpers'
-import {PageTitle} from '../../../../../_metronic/layout/core'
+import {PageTitle, PageToolbar} from '../../../../../_metronic/layout/core'
 import {UsersPlaceholder} from './components/placeholder/UsersPlaceholder'
+import { UserModal } from '../../../../../_metronic/partials/modals/user-create-modal-stepper/UserModal'
 
 const UsersList = () => {
   const intl = useIntl()
@@ -34,7 +34,7 @@ const UsersList = () => {
         :
         <>
           <PageTitle>{intl.formatMessage({id: 'MENU.USERS'})}</PageTitle>
-          {/* <PageToolbar buttons={buttons} /> */}
+          <PageToolbar buttons={buttons} />
           <KTCard className='bg-transparent'>
             <UsersListHeader />
             <div className="tab-content">
@@ -44,7 +44,7 @@ const UsersList = () => {
           </KTCard>
         </>
       }
-      {/* <UserCreateModalStepper show={showModalStepper} handleClose={() => setShowModalStepper(false)} /> */}
+      <UserModal userId={undefined} show={showModalStepper} handleClose={() => setShowModalStepper(false)} />
     </>
   )
 }

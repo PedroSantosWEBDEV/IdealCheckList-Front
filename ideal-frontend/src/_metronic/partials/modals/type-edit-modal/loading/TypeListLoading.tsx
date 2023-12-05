@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl'
 
-const CompanyListLoading = () => {
+const TypeListLoading = () => {
   const intl = useIntl()
   const styles = {
     borderRadius: '0.475rem',
@@ -18,4 +18,4 @@ const CompanyListLoading = () => {
   return <div style={{...styles, position: 'absolute', textAlign: 'center'}}>{intl.formatMessage({id: 'GENERAL.LOADING'})}</div>
 }
 
-export {CompanyListLoading}
+export {TypeListLoading}

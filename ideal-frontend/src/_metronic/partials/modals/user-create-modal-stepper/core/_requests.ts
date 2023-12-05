@@ -39,8 +39,8 @@ const createUser = (user: User): Promise<ResponseUser | undefined> => {
   formData.append('password',user.password);  
   formData.append('email',user.email);
   formData.append('shift_time',user.shift_time);
-  for (var i = 0; i < user.workdays.length; i++) {
-    formData.append('workdays[]', user.workdays[i].toLocaleString());
+  for (var i = 0; i < user.types.length; i++) {
+    formData.append('workdays[]', user.types[i].toLocaleString());
   }
   // formData.append('workdays[]',user.workdays.toLocaleString());
   if(user.phone){
@@ -73,8 +73,8 @@ const updateUser = (user: User): Promise<ResponseUser | undefined> => {
   if(user.shift_time){
   formData.append('shift_time',user.shift_time);
   }
-  for (var i = 0; i < user.workdays.length; i++) {
-    formData.append('workdays[]', user.workdays[i].toLocaleString());
+  for (var i = 0; i < user.types.length; i++) {
+    formData.append('workdays[]', user.types[i].toLocaleString());
   }
   if(user.phone){
   formData.append('phone',user.phone);

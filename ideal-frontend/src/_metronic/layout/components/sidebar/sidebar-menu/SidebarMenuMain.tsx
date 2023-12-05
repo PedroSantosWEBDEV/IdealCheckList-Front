@@ -6,21 +6,24 @@ import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
 import {SidebarMenuItem} from './SidebarMenuItem'
 
 const SidebarMenuMain = () => {
+  // debugger
   const intl = useIntl()
+  const url = window.location.pathname
   return (
     <>
       
       <SidebarMenuItem
-        to='/'
+        to='/dashboard'
         icon='/media/icons/duotune/general/gen001.svg'
         title={intl.formatMessage({id: 'MENU.HOME'})}
-        fontIcon='bi-app-indicator'
+        fontIcon={url ==='/dashboard'? 'bi-app-indicator': ''}
       />
 
       <SidebarMenuItem
         icon='/media/icons/duotune/arrows/arr085.svg'
         to='/squad-tasks'
         title={intl.formatMessage({id: 'MENU.CHECKLIST_APLICATION'})}
+
       />
       
       <SidebarMenuItemWithSub
@@ -30,24 +33,25 @@ const SidebarMenuMain = () => {
         icon='/media/icons/duotune/coding/cod001.svg'
       >
         <SidebarMenuItem
-          to='/wiki'
+          to='/checklist'
           title={intl.formatMessage({id: 'MENU.CHECKLISTS'})}
           hasBullet={true}
         />
         <SidebarMenuItem
-          to='/wiki'
+          to='/unidades'
           title={intl.formatMessage({id: 'MENU.UNIT'})}
           hasBullet={true}
         />
         <SidebarMenuItem
-          to='/wiki'
+          to='/types'
           title={intl.formatMessage({id: 'MENU.USER_TYPES'})}
           hasBullet={true}
         />
         <SidebarMenuItem
-          to='/wiki'
+          to='/usuarios'
           title={intl.formatMessage({id: 'MENU.USERS'})}
           hasBullet={true}
+          fontIcon={url ==='/usuarios'? 'bi-app-indicator': ''}
         />
       </SidebarMenuItemWithSub>
       

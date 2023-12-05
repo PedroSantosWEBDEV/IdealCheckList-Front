@@ -2,27 +2,27 @@ import {FC, useState} from 'react'
 import {KTSVG, isNotEmpty} from '../../../helpers'
 import {useIntl} from 'react-intl'
 import * as Yup from 'yup'
-import {Company, ResponseCompany} from './core/_models'
+import {Type, ResponseType} from './core/_models'
 import {useFormik} from 'formik'
 import {useQueryResponse} from './core/QueryResponseProvider'
 import {useListView} from './core/ListViewProvider'
 import {useMutation, useQueryClient} from 'react-query'
 import Swal from 'sweetalert2'
-import {createCompany, getEmailValid, updateCompany} from './core/_requests'
+import {createType, getEmailValid, updateType} from './core/_requests'
 import clsx from 'clsx'
 import { mask } from 'remask'
-import { CompanyListLoading } from './loading/CompanyListLoading'
+import { TypeListLoading } from './loading/TypeListLoading'
 
 type Props = {
-  isCompanyLoading: boolean
-  company: ResponseCompany
+  isTypeLoading: boolean
+  type: ResponseType
   handleClose: () => void | undefined
 }
-const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}) => {
+const TypeModalContent: FC<Props> = ({handleClose, type, isTypeLoading}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-  const [data, setData] = useState<Company>(company.companys)
+  const [data, setData] = useState<Type>(type.types)
   const queryClient = useQueryClient()
   // debugger;
   const editClientSchema = Yup.object().shape({
@@ -38,7 +38,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
       .required(intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})),
   })
 
-  const updateData = (fieldsToUpdate: Partial<Company>) => {
+  const updateData = (fieldsToUpdate: Partial<Type>) => {
     const updatedData = {...data, ...fieldsToUpdate}
     setData(updatedData)
   }
@@ -51,7 +51,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
     setItemIdForUpdate(undefined)
   }
 
-  const update = useMutation(() => updateCompany(data), {
+  const update = useMutation(() => updateType(data), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: (response) => {
       // ✅ update detail view directly
@@ -82,7 +82,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
     },
   })
 
-  const create = useMutation(() => createCompany(data), {
+  const create = useMutation(() => createType(data), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: (response) => {
       // ✅ update detail view directly
@@ -153,32 +153,30 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
 
   return (
     <>
-      <div className='modal-header pb-0 border-0 justify-content-end'>
+      {/* <div className='modal-header pb-0 border-0 justify-content-end'>
       <div className='btn btn-sm btn-icon btn-active-color-primary' onClick={handleClose}>
           <KTSVG className='svg-icon-1' path='/media/icons/duotune/arrows/arr061.svg' />
         </div>
-      </div>
-      <div className='modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15'>
+      </div> */}
+      {/* <div className='modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15'>
         <div className='text-center mb-5'>
-          <h1 className='mb-3'>{intl.formatMessage({id: 'MODAL.TITLE.COMPANY'})}</h1>
+          <h1 className='mb-3'>{intl.formatMessage({id: 'MODAL.TITLE.TYPE'})}</h1>
         </div>
         <form
-          id='kt_modal_edit_company_form'
+          id='kt_modal_edit_type_form'
           className='form'
           onSubmit={formik.handleSubmit}
           noValidate
         >
           <div
             className='d-flex flex-column scroll-y me-n7'>
-            {/* begin::Input group */}
+            
             <div className='mb-4'>
-              {/* begin::Label */}
+              
               <label className='required fw-bold fs-6 mb-2'>
-                {intl.formatMessage({id: 'FORM.INPUT.NAME.NAME_COMPANY'})}
+                {intl.formatMessage({id: 'FORM.INPUT.NAME.NAME_TYPE'})}
               </label>
-              {/* end::Label */}
-
-              {/* begin::Input */}
+              
               <input
                 {...formik.getFieldProps('name')}
                 placeholder={intl.formatMessage({id: 'FORM.INPUT.NAME.NAME'})}
@@ -198,15 +196,12 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                     'is-valid': formik.touched.name && !formik.errors.name,
                   }
                 )}
-                disabled={formik.isSubmitting || isCompanyLoading}
+                disabled={formik.isSubmitting || isTypeLoading}
                 autoComplete='off'
               />
             </div>
-            {/* end::Input group */}
-
-            {/* begin::Input group */}
             <div className='mb-4'>
-              {/* begin::Label */}
+              
               <label className='required fw-bold fs-6 mb-2'>
                 {intl.formatMessage({id: 'FORM.INPUT.NAME.RESPONSIBLE'})}
               </label>
@@ -229,7 +224,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                   }
                 )}
                 autoComplete='off'
-                disabled={formik.isSubmitting || isCompanyLoading}
+                disabled={formik.isSubmitting || isTypeLoading}
               />
               {formik.touched.responsible && formik.errors.responsible && (
                 <div className='fv-plugins-message-container'>
@@ -239,8 +234,8 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                 </div>
               )}
             </div>
-            {/* end::Input group */}
-            {/* begin::Input group */}
+            
+            
             <div className='mb-4'>
               <label className='required fw-bold'>
                 {intl.formatMessage({id: 'FORM.INPUT.NAME.EMAIL'})}
@@ -266,7 +261,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                   }
                 )}
                 autoComplete='off'
-                disabled={formik.isSubmitting || isCompanyLoading}
+                disabled={formik.isSubmitting || isTypeLoading}
               />
               {formik.touched.email && formik.errors.email && (
                 <div className='fv-plugins-message-container'>
@@ -276,7 +271,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                 </div>
               )}
             </div>
-            {/* end::Input group */}
+            
 
             <div className='mb-4'>
                     <label className='required fw-bold'>
@@ -303,7 +298,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                         }
                       )}
                       autoComplete='off'
-                      disabled={formik.isSubmitting || isCompanyLoading}
+                      disabled={formik.isSubmitting || isTypeLoading}
                     />
                     {formik.touched.phone && formik.errors.phone && (
                       <div className='fv-plugins-message-container'>
@@ -337,7 +332,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                         }
                       )}
                       autoComplete='off'
-                      disabled={formik.isSubmitting || isCompanyLoading}
+                      disabled={formik.isSubmitting || isTypeLoading}
                     />
                     {formik.touched.observation && formik.errors.observation && (
                       <div className='fv-plugins-message-container'>
@@ -363,7 +358,7 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                           }}
                           className={clsx('form-check-input h-25px w-40px')}
                           autoComplete='off'
-                          disabled={formik.isSubmitting || isCompanyLoading}
+                          disabled={formik.isSubmitting || isTypeLoading}
                         />
                         {formik.touched.active && formik.errors.active && (
                           <div className='fv-plugins-message-container'>
@@ -374,16 +369,13 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                         )}
 
                         <label className='form-check-label' htmlFor='isActive'>
-                          {intl.formatMessage({id: 'FORM.INPUT.NAME.IS_COMPANY_ACTIVE'})}
+                          {intl.formatMessage({id: 'FORM.INPUT.NAME.IS_TYPE_ACTIVE'})}
                         </label>
                       </div>
-                    </div> */}
+                    </div> 
           </div>
-          {/* end::Scroll */}
-
-          {/* begin::Actions */}
           <div className='text-center pt-5'>
-            <button type='reset' className='btn btn-light me-5 py-2' data-kt-company-modal-action='cancel'>
+            <button type='reset' className='btn btn-light me-5 py-2' data-kt-type-modal-action='cancel'>
               {intl.formatMessage({id: 'FORM.GENERAL.CANCEL_BUTTON'})}
             </button>
 
@@ -392,13 +384,13 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
                 className='btn btn-primary py-2'
                 data-kt-projects-modal-action='submit'
                 disabled={
-                  isCompanyLoading || formik.isSubmitting || !formik.isValid || !formik.touched
+                  isTypeLoading || formik.isSubmitting || !formik.isValid || !formik.touched
                 }
               >
                 <span className='indicator-label'>
                   {intl.formatMessage({id: 'FORM.GENERAL.SAVE_BUTTON'})}
                 </span>
-                {(formik.isSubmitting || isCompanyLoading) && (
+                {(formik.isSubmitting || isTypeLoading) && (
                   <span className='indicator-progress'>
                     {intl.formatMessage({id: 'GENERAL.LOADING'})}{' '}
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -407,10 +399,10 @@ const CompanyModalContent: FC<Props> = ({handleClose, company, isCompanyLoading}
               </button>
           </div>
         </form>
-        {(formik.isSubmitting || isCompanyLoading) && <CompanyListLoading />}
-      </div>
+        {(formik.isSubmitting || isTypeLoading) && <TypeListLoading />}
+      </div> */}
     </>
   )
 }
 
-export {CompanyModalContent}
+export {TypeModalContent}

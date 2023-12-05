@@ -3,7 +3,7 @@ import {FC, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Languages} from './Languages'
 import {UserModal} from '../../modals/user-create-modal-stepper/UserModal'
-import {CompanyModal} from '../../modals/company-edit-modal/CompanyModal'
+import {TypeModal} from '../../modals/type-edit-modal/TypeModal'
 import { useAuth } from '../../../../app/modules/auth'
 import { isNotEmpty, toAbsoluteUrl } from '../../../helpers'
 import { getUserById } from '../../modals/user-create-modal-stepper/core/_requests'
@@ -11,13 +11,13 @@ import { getUserById } from '../../modals/user-create-modal-stepper/core/_reques
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth()
   const [showModalStepper, setShowModalStepper] = useState<boolean>(false)
-  const [showModalCompany, setShowModalCompany] = useState<boolean>(false)
+  const [showModalType, setShowModalType] = useState<boolean>(false)
   const openEditModal = () => {
     // debugger;
     setShowModalStepper(true)
   }
   const openEditModalComapany = () => {
-    setShowModalCompany(true)
+    setShowModalType(true)
   }
   const [avatar,setAvatar] = useState('')
   useEffect(() => {
@@ -79,10 +79,10 @@ const HeaderUserMenu: FC = () => {
           </a>
         </div>
       )}
-      <CompanyModal
-              show={showModalCompany}
-              handleClose={() => setShowModalCompany(false)}
-              companyId={currentUser?.instance_id}
+      <TypeModal
+              show={showModalType}
+              handleClose={() => setShowModalType(false)}
+              typeId={currentUser?.instance_id}
             />
 
       <div
