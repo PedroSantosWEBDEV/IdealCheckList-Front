@@ -9,12 +9,24 @@ import { useMutation } from 'react-query'
 import { useEffect, useState } from 'react'
 import { Type } from '../../type-edit-modal/core/_models'
 import { getType } from '../../type-edit-modal/core/_requests'
+import { Company } from '../../company-edit-modal/core/_models'
+import { getCompany } from '../../company-edit-modal/core/_requests'
 
 const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
   const intl = useIntl()
   const { currentUser } = useAuth()
   const [types, setTypes] = useState<Type[]>([])
-  const getSelectClients = useMutation(() => getType(), {
+  const [company, setCompanys] = useState<Company[]>([])
+  const getSelectTypes = useMutation(() => getType(), {
+    // 💡 response of the mutation is passed to onSuccess
+    onSuccess: (response) => {
+      // ✅ update detail view directly
+      // debugger;
+
+      setTypes(response.data)
+    },
+  })
+  const getSelectCompanys = useMutation(() => getCompany(), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: (response) => {
       // ✅ update detail view directly
@@ -25,7 +37,7 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
   })
 
   useEffect(() => {
-    getSelectClients.mutateAsync()
+    getSelectTypes.mutateAsync()
   }, [])
   // console.log(data)
   return (
@@ -91,19 +103,30 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
               <label htmlFor='birthday' className='d-flex align-items-center fs-5 fw-semibold mb-2'>
                 {intl.formatMessage({ id: 'FORM.INPUT.NAME.BIRTHDAY' })}
               </label>
-              <input
-                type='date'
-                className='form-control form-control-lg form-control-solid'
-                name='birthday'
-                id='birthday'
-                value={data.birthday ?? ''}
-                onChange={(e) =>
+              <select
+                className='form-select form-select-solid'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                name='project-client'
+                id='project-client'
+                placeholder=''
+                autoComplete='off'
+                value={data.company}
+                onChange={(e: any) => {
                   updateData({
-                    in_company_since: data.in_company_since,
-                    birthday: e.target.value,
+                    company: e.target.value
                   })
-                }
-              />
+                }}
+              >
+                <option value="">{intl.formatMessage({ id: 'FORM.INPUT.TOOLTIP.CLIENT' })}</option>
+                {company.map((item, index) => (
+                  <option key={index} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+
+              </select>
             </div>
             <div className='fv-row mb-3'>
               <label htmlFor='password' className='d-flex align-items-center fs-5 fw-semibold mb-2'>

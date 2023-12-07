@@ -70,7 +70,8 @@ const UserModalContentWrapper: FC<Props> = ({
             birthday: '',
             instance_id: '',
             creator_id: '',
-            administrator: 0
+            administrator: 0,
+            company: []
           },
           message: '',
           errors: false

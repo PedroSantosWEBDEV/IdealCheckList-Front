@@ -11,6 +11,7 @@ export type User = {
   job_role: string
   instance_id: string
   types: Array<string>
+  company: Array<string>
   administrator: number
   vacation?: boolean
   edit_costs?: boolean
@@ -40,6 +41,7 @@ export const initialUser: User = {
   avatar: '',
   password: '',
   types: [],
+  company: [],
   cost_hour: '0',
   administrator: 0,
   vacation: false,
