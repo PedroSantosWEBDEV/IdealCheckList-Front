@@ -3,8 +3,6 @@ import { useIntl } from 'react-intl'
 import clsx from 'clsx'
 import { StepProps } from '../core/_models'
 import { mask } from 'remask'
-import { InputCurrency } from '../../../../helpers'
-import { useAuth } from '../../../../../app/modules/auth'
 import { useMutation } from 'react-query'
 import { useEffect, useState } from 'react'
 import { Type } from '../../type-edit-modal/core/_models'
@@ -14,7 +12,6 @@ import { getCompany } from '../../company-edit-modal/core/_requests'
 
 const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
   const intl = useIntl()
-  const { currentUser } = useAuth()
   const [types, setTypes] = useState<Type[]>([])
   const [company, setCompanys] = useState<Company[]>([])
   const getSelectTypes = useMutation(() => getType(), {
@@ -38,6 +35,7 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
 
   useEffect(() => {
     getSelectTypes.mutateAsync()
+    getSelectCompanys.mutateAsync()
   }, [])
   // console.log(data)
   return (
@@ -125,7 +123,6 @@ const Step2 = ({ data, updateData, hasError, props }: StepProps) => {
                     {item.name}
                   </option>
                 ))}
-
               </select>
             </div>
             <div className='fv-row mb-3'>

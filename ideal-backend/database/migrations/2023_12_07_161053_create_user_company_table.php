@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company', function (Blueprint $table) {
+        Schema::create('user_company', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name');
+            $table->integer('user_id')->index('fk_user_company_idx');
+            $table->boolean('active')->nullable();
             $table->integer('creator_id')->nullable()->index('fk_creator_idx');
             $table->timestamps();
         });
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company');
+        Schema::dropIfExists('user_company');
     }
 };

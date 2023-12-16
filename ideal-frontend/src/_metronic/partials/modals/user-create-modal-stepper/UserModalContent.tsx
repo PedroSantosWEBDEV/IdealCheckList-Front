@@ -339,7 +339,7 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
           {/*begin::Content */}
           <div className='flex-row-fluid py-lg-5 px-lg-15'>
             {/*begin::Form */}
-            <Formik validationSchema={currentSchema} initialValues={data} onSubmit={submit}>
+            {/* <Formik validationSchema={currentSchema} initialValues={data} onSubmit={submit}>
               {(props) => (
                 <form noValidate id='kt_modal_edit_project_form'>
                   <Step1 data={data} updateData={updateData} hasError={hasError} props={props} />
@@ -390,7 +390,7 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
                   </div>
                 </form>
               )}
-            </Formik>
+            </Formik> */}
           </div>
         </div>
       </div>
