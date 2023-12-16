@@ -28,6 +28,16 @@
         --kt-gray-#{$name}-rgb: #{to-rgb($value)};
     }
 
+    // Cyan colors
+    @each $name, $value in $cyans {
+        --kt-cyan-#{$name}: #{$value};
+    }
+    
+    // Blue light colors
+    @each $name, $value in $blues-light {
+        --kt-blue-light-#{$name}: #{$value};
+    }
+
     // Contextual colors
     @each $name, $value in $theme-colors {
         --kt-#{$name}: #{$value};

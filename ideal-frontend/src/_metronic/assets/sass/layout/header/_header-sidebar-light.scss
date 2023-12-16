@@ -36,8 +36,9 @@
 @include media-breakpoint-up(lg) {
     [data-kt-app-layout="light-sidebar"]:not([data-kt-app-header-fixed="true"]) {
         .app-header {
-            background-color: transparent;    
+            background-color: var(--kt-app-sidebar-light-bg-color);    
             box-shadow: none;
+            border-left: 1px solid var(--kt-app-sidebar-light-separator-color);
             border-bottom: 1px solid var(--kt-app-sidebar-light-separator-color);
         }
     }

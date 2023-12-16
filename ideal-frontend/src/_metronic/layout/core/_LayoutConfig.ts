@@ -1,7 +1,7 @@
 import {ILayout} from './_Models'
 
 export const DefaultConfig: ILayout = {
-  layoutType: 'dark-sidebar',
+  layoutType: 'light-sidebar',
   main: {
     componentName: 'main',
     type: 'default',
@@ -63,7 +63,7 @@ export const DefaultConfig: ILayout = {
         minimize: {
           desktop: {
             enabled: true,
-            default: false,
+            default: true,
             hoverable: true,
           },
         },
@@ -76,7 +76,7 @@ export const DefaultConfig: ILayout = {
       componentName: 'toolbar',
       display: true,
       layout: 'classic',
-      class: 'py-3 py-lg-6',
+      class: 'pt-10',
       container: 'fluid',
       containerClass: 'd-flex flex-stack',
       fixed: {

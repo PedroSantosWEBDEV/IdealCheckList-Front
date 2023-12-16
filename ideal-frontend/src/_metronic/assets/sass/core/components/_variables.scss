@@ -694,14 +694,14 @@ $input-plaintext-color:                     $gray-700 !default;
 $input-plaintext-color-dark:                $gray-700-dark !default;
 
 // Keenthemes solid input style
-$input-solid-bg:                            $gray-100 !default;
-$input-solid-bg-dark:                       $gray-100-dark !default;
+$input-solid-bg:                            $gray-300 !default;
+$input-solid-bg-dark:                       $gray-300-dark !default;
 $input-solid-bg-focus:                      darken($gray-100, 2%) !default;
 $input-solid-bg-focus-dark:                 lighten($gray-100-dark, 2%) !default;
 $input-solid-placeholder-color:             $input-placeholder-color !default; 
 $input-solid-placeholder-color-dark:        $input-placeholder-color-dark !default; 
-$input-solid-color:         	            $gray-700 !default;
-$input-solid-color-dark:                    $gray-700-dark !default;
+$input-solid-color:         	            $gray-900 !default;
+$input-solid-color-dark:                    $gray-900-dark !default;
 
 // Form checks
 $form-check-input-width:                    1.75rem !default;
@@ -723,7 +723,7 @@ $form-check-input-active-filter-dark:       brightness(90%) !default;
 
 $form-check-input-bg:                       transparent !default;
 $form-check-input-bg-dark:                  transparent !default;
-$form-check-input-bg-solid:                 $gray-200 !default;
+$form-check-input-bg-solid:                 $gray-400 !default;
 $form-check-input-bg-solid-dark:            $gray-200-dark !default;
 $form-check-input-bg-solid:                 $gray-200 !default;
 $form-check-input-bg-solid-dark:            $gray-200-dark !default;

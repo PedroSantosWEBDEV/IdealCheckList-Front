@@ -278,4 +278,327 @@ const defaultLogs: Array<LogModel> = [
   {code: '500 ERR', state: 'danger', message: 'Mail tasks', time: 'Dec 10'},
 ]
 
-export {defaultMessages, defaultUserInfos, defaultAlerts, defaultLogs, messageFromClient}
+const INITIAL_STAGES = {
+  'stage-0': 'Não iniciada',
+  'stage-1': 'Em andamento',
+  'stage-2': 'Para aprovação',
+  'stage-3': 'Feito'
+}
+
+const INITIAL_TASKS = [
+  {
+    id: '1',
+    name: '[Aktie] Configurar SMTP',
+    totalTime: 3617,
+    stage: 'stage-0'
+  },
+  {
+    id: '2',
+    name: '[SACCE] Lista de melhorias',
+    totalTime: 20102,
+    stage: 'stage-0'
+  },
+  {
+    id: '3',
+    name: '[Ciclogiro] Trocar dateway de pagamento',
+    totalTime: 1722,
+    stage: 'stage-0'
+  },
+  {
+    id: '4',
+    name: '[AFFEMG] Criar CRUD de Admin',
+    totalTime: 20,
+    stage: 'stage-0'
+  }
+]
+
+const REGISTERED_HOURS = [
+  {
+    day_of_week: '1 set - qui',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '2 set - sex',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '3 set - sab',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '4 set - dom',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '5 set - seg',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 45
+  },
+  {
+    day_of_week: '6 set - ter',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '7 set - qua',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  }
+]
+
+const REGISTERED_HOURS_2 = [
+  {
+    day_of_week: '1 set - qui',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '2 set - sex',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '3 set - sab',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '4 set - dom',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '5 set - seg',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 45
+  },
+  {
+    day_of_week: '6 set - ter',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '7 set - qua',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  },
+  {
+    day_of_week: '1 set - qui',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '2 set - sex',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '3 set - sab',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '4 set - dom',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '5 set - seg',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 45
+  },
+  {
+    day_of_week: '6 set - ter',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '7 set - qua',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  },
+  {
+    day_of_week: '1 set - qui',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '2 set - sex',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '3 set - sab',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '4 set - dom',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '5 set - seg',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 45
+  },
+  {
+    day_of_week: '6 set - ter',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '7 set - qua',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  },
+  {
+    day_of_week: '1 set - qui',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '2 set - sex',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '3 set - sab',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '4 set - dom',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '5 set - seg',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 45
+  },
+  {
+    day_of_week: '6 set - ter',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '7 set - qua',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  }
+]
+
+const REGISTERED_HOURS_3 = [
+  {
+    day_of_week: '10/02 - 09/03',
+    worked_hours: '6H59',
+    worked_hours_in_percentage: 80
+  },
+  {
+    day_of_week: '10/03 - 09/04',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 120
+  },
+  {
+    day_of_week: '10/04 - 09/05',
+    worked_hours: '0H',
+    worked_hours_in_percentage: 0
+  },
+  {
+    day_of_week: '10/05 - 09/06',
+    worked_hours: '1H17',
+    worked_hours_in_percentage: 50
+  },
+  {
+    day_of_week: '10/06 - 09/07',
+    worked_hours: '3H17',
+    worked_hours_in_percentage: 100
+  },
+  {
+    day_of_week: '10/07 - 09/08',
+    worked_hours: '7H17',
+    worked_hours_in_percentage: 90
+  },
+  {
+    day_of_week: '10/08 - 09/09',
+    worked_hours: '6H28',
+    worked_hours_in_percentage: 70
+  }
+  
+]
+
+const REPORTS = {
+  'data': [
+    {
+      id: 1,
+      image: '/media/stock/600x400/img-21.jpg',
+      title: 'Pacote de Horas de Cliente',
+      about: 'Veja quanto tempo trabalhou para cada cliente.',
+      url: 'package-of-hours'
+    },
+    {
+      id: 2,
+      image: '/media/stock/600x400/img-80.jpg',
+      title: 'Margem de Lucro de Projetos Recorrentes',
+      about: 'Lançamento de horas por projeto.',
+      url: 'profit-margin-recurring-projects'
+    },
+    {
+      id: 3,
+      image: '/media/stock/600x400/img-11.jpg',
+      title: 'Margem de Lucro de Projetos de Escopo Fechado',
+      about: 'Entenda como os colaboradores estão alocando seu tempo.',
+      url: 'profit-margin-closed-scope-projects'
+    },
+    {
+      id: 4,
+      image: '/media/stock/600x400/img-50.jpg',
+      title: 'Gestão de atividades da equipe',
+      about: 'Veja quanto tempo trabalhou para cada cliente.',
+      url: '/squad-tasks'
+    },
+    {
+      id: 5,
+      image: '/media/stock/600x400/img-56.jpg',
+      title: 'Lista de Previsões de Projetos',
+      about: 'Veja breve resumo sobre o projeto',
+      url: '/project-forecast'
+    },
+  ]
+}
+
+const WIKI = {
+  'data': [
+    {
+      id: 1,
+      image: 'https://wiki.verticis.com.br/wp-content/uploads/2019/04/seguranca-260x185.png',
+      title: '[WordPress] Configurações de segurança',
+      about: 'Lista com os ajustes de segurança para projetos.'
+    },
+    {
+      id: 2,
+      image: 'https://wiki.verticis.com.br/wp-content/uploads/2019/05/wf-260x185.jpg',
+      title: '[Desenvolvimento] Importar configurações do Wordfence',
+      about: 'Quer poupar tempo e trabalho para configurar o Wordfence? Chega mais que vou te dar uma...'
+    },
+    {
+      id: 3,
+      image: 'https://wiki.verticis.com.br/wp-content/uploads/2014/12/img-novo-artigo-260x185.png',
+      title: '[Desenvolvimento] Criando o projeto em localhost',
+      about: 'Passo a passo para criar um projeto em localhost'
+    },
+    {
+      id: 4,
+      image: 'https://wiki.verticis.com.br/wp-content/uploads/2019/11/0_3iJLQaoQI66YJuQk-260x185.jpg',
+      title: '[Desenvolvimento] Padronização de commits',
+      about: 'Padronizamos os commits com o intuito de manter um histórico de alterações organizados'
+    }
+  ]
+}
+
+export {defaultMessages, defaultUserInfos, defaultAlerts, defaultLogs, messageFromClient, INITIAL_STAGES, INITIAL_TASKS, REGISTERED_HOURS, REGISTERED_HOURS_2, REGISTERED_HOURS_3, REPORTS, WIKI}

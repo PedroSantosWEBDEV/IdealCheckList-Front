@@ -24,7 +24,7 @@ const UsersListPagination = () => {
       return
     }
 
-    updateState({page, items_per_page: pagination.items_per_page || 10})
+    updateState({page, per_page: pagination.per_page || 10})
   }
 
   return (

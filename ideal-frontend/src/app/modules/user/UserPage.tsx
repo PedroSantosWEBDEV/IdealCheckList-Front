@@ -7,16 +7,14 @@ const UserPage = () => (
   <Routes>
     <Route element={<Outlet />}>
       <Route
-        path='new-user'
+        path='/'
         element={
           <>
-            <PageTitle>Novo Usuario</PageTitle>
             {/* <NewUser userId={undefined} /> */}
             <UsersListWrapper/>
           </>
         }
       />
-      <Route index element={<Navigate to='/config/user/new-user' />} />
     </Route>
   </Routes>
 )

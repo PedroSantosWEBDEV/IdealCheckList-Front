@@ -1,12 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
 import {Languages} from './Languages'
-import {toAbsoluteUrl} from '../../../helpers'
+import {UserModal} from '../../modals/user-create-modal-stepper/UserModal'
+import {TypeModal} from '../../modals/type-edit-modal/TypeModal'
+import { useAuth } from '../../../../app/modules/auth'
+import { isNotEmpty, toAbsoluteUrl } from '../../../helpers'
+import { getUserById } from '../../modals/user-create-modal-stepper/core/_requests'
 
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth()
+  const [showModalStepper, setShowModalStepper] = useState<boolean>(false)
+  const [showModalType, setShowModalType] = useState<boolean>(false)
+  const openEditModal = () => {
+    // debugger;
+    setShowModalStepper(true)
+  }
+  const openEditModalComapany = () => {
+    setShowModalType(true)
+  }
+  const [avatar,setAvatar] = useState('')
+  useEffect(() => {
+    // console.log("Entrou Aqui")
+    (async () => {
+      await getUserById(currentUser?.id).then((response)=>{
+          // debugger;
+          setAvatar(response.users.avatar)
+      })
+    })();
+  },[currentUser?.id])
+  const TemaAtual = window.localStorage.getItem('kt_theme_mode_value') || ''
+
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -15,13 +39,14 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={toAbsoluteUrl('/media/avatars/300-1.jpg')} />
+            {avatar && TemaAtual === 'dark' ? (<img alt='Logo' src={isNotEmpty(avatar) && avatar !== 'null' ? avatar : toAbsoluteUrl('/media/svg/files/blank-image-dark.svg')} />) : (<img alt='Logo' src={isNotEmpty(avatar) && avatar !== 'null' ? avatar : toAbsoluteUrl('/media/svg/files/blank-image.svg')} />)}
+            
           </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.first_name} {currentUser?.first_name}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
+              {currentUser?.name} 
+              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{currentUser?.type_id === 1 ? 'Admin' : ''}</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
               {currentUser?.email}
@@ -33,19 +58,32 @@ const HeaderUserMenu: FC = () => {
       <div className='separator my-2'></div>
 
       <div className='menu-item px-5'>
-        <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-          My Profile
-        </Link>
+        <a className='menu-link px-5' onClick={openEditModal}>
+          Meu Perfil
+          {/* {intl.formatMessage({id: 'TABLE.GENERAL.LABEL.EDIT'})} */}
+        </a>
+        <UserModal
+          show={showModalStepper}
+          handleClose={() => setShowModalStepper(false)}
+          userId={currentUser?.id}
+        />
       </div>
 
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          <span className='menu-text'>My Projects</span>
-          <span className='menu-badge'>
-            <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
-          </span>
-        </a>
-      </div>
+      {currentUser?.type_id === 1 && (
+        <div className='menu-item px-5'>
+          <a className='menu-link px-5' onClick={openEditModalComapany}>
+            <span className='menu-text'>Conta da Empresa</span>
+            {/* <span className='menu-badge'>
+              <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
+            </span> */}
+          </a>
+        </div>
+      )}
+      <TypeModal
+              show={showModalType}
+              handleClose={() => setShowModalType(false)}
+              typeId={currentUser?.instance_id}
+            />
 
       <div
         className='menu-item px-5'
@@ -54,38 +92,44 @@ const HeaderUserMenu: FC = () => {
         data-kt-menu-flip='bottom'
       >
         <a href='#' className='menu-link px-5'>
-          <span className='menu-title'>My Subscription</span>
+          <span className='menu-title'>Configurações Gerais</span>
           <span className='menu-arrow'></span>
         </a>
 
         <div className='menu-sub menu-sub-dropdown w-175px py-4'>
           <div className='menu-item px-3'>
             <a href='#' className='menu-link px-5'>
-              Referrals
+              Usuários
             </a>
           </div>
 
           <div className='menu-item px-3'>
             <a href='#' className='menu-link px-5'>
-              Billing
+              Tipos de Tarefas
             </a>
           </div>
 
           <div className='menu-item px-3'>
             <a href='#' className='menu-link px-5'>
-              Payments
+              Feriados
             </a>
           </div>
 
           <div className='menu-item px-3'>
-            <a href='#' className='menu-link d-flex flex-stack px-5'>
-              Statements
+            <a href='#' className='menu-link px-5'>
+              Modelo de Projetos
+            </a>
+          </div>
+
+          <div className='menu-item px-3'>
+            <Link to='/configs' className='menu-link d-flex flex-stack px-5'>
+              Configurações do TaskRush
               <i
                 className='fas fa-exclamation-circle ms-2 fs-7'
                 data-bs-toggle='tooltip'
                 title='View your statements'
               ></i>
-            </a>
+            </Link>
           </div>
 
           <div className='separator my-2'></div>
@@ -100,17 +144,11 @@ const HeaderUserMenu: FC = () => {
                   defaultChecked={true}
                   name='notifications'
                 />
-                <span className='form-check-label text-muted fs-7'>Notifications</span>
+                <span className='form-check-label text-muted fs-7'>Notificações</span>
               </label>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          My Statements
-        </a>
       </div>
 
       <div className='separator my-2'></div>
@@ -119,13 +157,13 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5 my-1'>
         <Link to='/crafted/account/settings' className='menu-link px-5'>
-          Account Settings
+          Configurar notificações
         </Link>
       </div>
 
       <div className='menu-item px-5'>
         <a onClick={logout} className='menu-link px-5'>
-          Sign Out
+          Sair
         </a>
       </div>
     </div>

@@ -41,7 +41,7 @@ const PrivateRoutes = () => {
           }
         /> */}
         <Route
-          path='config/user/*'
+          path='usuarios/*'
           element={
             <SuspensedView>
               <UserPage />

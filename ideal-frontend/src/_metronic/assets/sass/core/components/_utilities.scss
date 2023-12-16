@@ -32,7 +32,12 @@ $utilities: map-merge(
             responsive: true,
             property: width,
             class: w,
-            values: $custom-sizes
+            values: map-merge(
+                $custom-sizes, 
+                (
+                    "fit-content": fit-content
+                )   
+            )
         ),
         "max-width": (
             responsive: true,
@@ -63,6 +68,15 @@ $utilities: map-merge(
             property: min-height,
             class: min-h,
             values: $custom-sizes
+        ),
+        "viewport-height": map-merge(
+            map-get($utilities, "viewport-height"),
+            (
+                values: map-merge(
+                    map-get(map-get($utilities, "viewport-height"), "values"),
+                    (75: 75vh)
+                )
+            )
         ),
         "z-index": (
             property: z-index,
@@ -120,6 +134,71 @@ $utilities: map-merge(
                 circle: 50%,
                 pill: $border-radius-pill
             )
-        )
+        ),
+        "transition": (
+            property: transition,
+            class: transition,
+            values: (
+                all: all 700ms
+            )
+        ),
+        "font-weight": map-merge(
+            map-get($utilities, "font-weight"),
+            (
+                values: map-merge(
+                    map-get(map-get($utilities, "font-weight"), "values"),
+                    (semi-bold: 500)
+                )
+            )
+        ),
+        "border": map-merge(
+            map-get($utilities, "border"),
+            ( responsive: true ),
+        ),
+        "border-top": map-merge(
+            map-get($utilities, "border-top"),
+            ( responsive: true ),
+        ),
+        "border-end": map-merge(
+            map-get($utilities, "border-end"),
+            ( responsive: true ),
+        ),
+        "border-bottom": map-merge(
+            map-get($utilities, "border-bottom"),
+            ( responsive: true ),
+        ),
+        "border-start": map-merge(
+            map-get($utilities, "border-start"),
+            ( responsive: true ),
+        ),
+        "white-space": (
+            property: white-space,
+            class: white-space,
+            values: (
+                nowrap, 
+                break-spaces
+            )
+        ),
+        "overflow-x": (
+            property: overflow-x,
+            class: overflow-x,
+            values: auto hidden visible scroll
+        ),
+        "overflow-y": (
+            property: overflow-y,
+            class: overflow-y,
+            values: auto hidden visible scroll
+        ),
+        "object-fit": (
+            responsive: true,
+            property: object-fit,
+            values: (
+                contain: contain,
+                cover: cover,
+                fill: fill,
+                scale: scale-down,
+                none: none,
+            )
+        ),
     )
 );

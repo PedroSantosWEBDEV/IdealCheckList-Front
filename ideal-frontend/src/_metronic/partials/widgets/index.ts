@@ -39,6 +39,7 @@ export * from './statistics/StatisticsWidget3'
 export * from './statistics/StatisticsWidget4'
 export * from './statistics/StatisticsWidget5'
 export * from './statistics/StatisticsWidget6'
+export * from './statistics/StatisticsWidget7'
 
 // charts
 export * from './charts/ChartsWidget1'
@@ -49,6 +50,11 @@ export * from './charts/ChartsWidget5'
 export * from './charts/ChartsWidget6'
 export * from './charts/ChartsWidget7'
 export * from './charts/ChartsWidget8'
+export * from './charts/ChartsWidget9'
+export * from './charts/ChartsWidget10'
+export * from './charts/ChartsWidget11'
+export * from './charts/ChartsWidget12'
+export * from './charts/ChartsWidget13'
 
 // tables
 export * from './tables/TablesWidget1'
@@ -90,3 +96,7 @@ export * from './_new/cards/CardsWidget20'
 export * from './_new/lists/ListsWidget26'
 
 export * from './_new/engage/EngageWidget10'
+
+//alerts
+export * from './alerts/Toast'
+export * from './alerts/AlertBoostrapButtons'

@@ -1,4 +1,4 @@
-export type LayoutType = 'dark-sidebar' | 'light-sidebar' | 'dark-header' | 'light-header'
+export type LayoutType = 'light-header' | 'light-sidebar' |  'dark-sidebar' | 'dark-header'
 
 export type CSSClassesType = {
   [key: string]: string[]

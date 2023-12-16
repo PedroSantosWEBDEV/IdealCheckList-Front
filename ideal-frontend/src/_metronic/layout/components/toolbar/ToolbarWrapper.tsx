@@ -9,11 +9,6 @@ const ToolbarWrapper = () => {
     return null
   }
 
-  const isPageTitleVisible = showPageTitle(
-    config.app?.toolbar?.layout,
-    config.app?.pageTitle?.display
-  )
-
   return (
     <div
       id='kt_app_toolbar'
@@ -32,20 +27,11 @@ const ToolbarWrapper = () => {
           }
         )}
       >
-        {isPageTitleVisible && <PageTitleWrapper />}
+        <PageTitleWrapper />
         <Toolbar />
       </div>
     </div>
   )
-}
-
-const showPageTitle = (appToolbarLayout?: ToolbarType, appPageTitleDisplay?: boolean): boolean => {
-  const viewsWithPageTitles = ['classic', 'reports', 'saas']
-  if (!appToolbarLayout || !appPageTitleDisplay) {
-    return false
-  }
-
-  return appPageTitleDisplay && viewsWithPageTitles.some((t) => t === appToolbarLayout)
 }
 
 export {ToolbarWrapper}

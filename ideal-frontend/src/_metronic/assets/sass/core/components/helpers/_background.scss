@@ -108,6 +108,40 @@
 	.bg-gray-#{$name}i {
 		background-color: var(--kt-gray-#{$name}) !important;
 	}
+
+	.bg-focus-gray-#{$name}:focus {
+		background-color: var(--kt-gray-#{$name});
+	}
+}
+
+// Background cyan colors
+@each $name, $value in $cyans {
+    .bg-cyan-#{$name} {
+		background-color: var(--kt-cyan-#{$name});
+	}
+
+	.bg-cyan-#{$name}i {
+		background-color: var(--kt-cyan-#{$name}) !important;
+	}
+
+	.bg-focus-cyan-#{$name}:focus {
+		background-color: var(--kt-cyan-#{$name});
+	}
+}
+
+// Background cyan colors
+@each $name, $value in $blues-light {
+    .bg-blue-light-#{$name} {
+		background-color: var(--kt-blue-light-#{$name});
+	}
+
+	.bg-blue-light-#{$name}i {
+		background-color: var(--kt-blue-light-#{$name}) !important;
+	}
+
+	.bg-focus-blue-light-#{$name}:focus {
+		background-color: var(--kt-blue-light-#{$name});
+	}
 }
 
 // Opacity

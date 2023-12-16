@@ -15,13 +15,13 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('name');
             $table->string('username');
-            $table->integer('type_id')->nullable()->index('fk_user_type1_idx');
+            $table->bigInteger('type_id')->unsigned()->index('fk_user_type1_idx');
             $table->string('email')->unique();
             $table->string('phone', 45)->nullable();
             $table->boolean('active')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('creator_id')->nullable()->index('fk_creator_idx');
+            $table->integer('creator_id')->nullable()->index('fk_creator1_idx');
             $table->rememberToken();
             $table->timestamps();
         });

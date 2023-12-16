@@ -45,6 +45,7 @@ export interface UserSocialNetworksModel {
 
 export interface UserModel {
   id: number
+  instance_id: number
   username: string
   password: string | undefined
   email: string
