@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $table = 'user_company';
+    protected $table = 'company';
 
     protected $fillable = [
-        'user_id',
         'name',
         'active',
         'creator_id'

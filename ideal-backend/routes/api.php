@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\TypeUserController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -46,5 +47,9 @@ Route::controller(UserController::class)->prefix('usuarios')->as('users.')->grou
 Route::controller(TypeUserController::class)->prefix('tipos')->as('user_types')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/novo', 'store')->name('store');
-    
+});
+
+Route::controller(CompanyController::class)->prefix('empresas')->as('company')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/novo', 'store')->name('store');
 });

@@ -1,36 +1,34 @@
-import {FC, useEffect, useState} from 'react'
-import {ID, KTSVG, isNotEmpty} from '../../../helpers'
-import {useIntl} from 'react-intl'
-import {ResponseUser, User} from './core/_models'
-import {StepperComponent} from '../../../assets/ts/components'
+import { FC, useCallback, useEffect, useState } from 'react'
+import { ID, KTSVG, isNotEmpty, toAbsoluteUrl } from '../../../helpers'
+import { useIntl } from 'react-intl'
+import { ResponseUser, User } from './core/_models'
+import { StepperComponent } from '../../../assets/ts/components'
 import * as Yup from 'yup'
-import {useQueryResponse} from './core/QueryResponseProvider'
-import {useMutation, useQueryClient} from 'react-query'
-import {Step1} from './steps/Step1'
-import {Step2} from './steps/Step2'
-import {createUser, getEmailValid, updateUser} from './core/_requests'
+import { useQueryResponse } from './core/QueryResponseProvider'
+import { useMutation, useQueryClient } from 'react-query'
+import { Step1 } from './steps/Step1'
+import { Step2 } from './steps/Step2'
+import { createUser, getEmailValid, updateUser } from './core/_requests'
 import Swal from 'sweetalert2'
-import {UsersListLoading} from './loading/UsersListLoading'
-import {Formik} from 'formik'
+import { UsersListLoading } from './loading/UsersListLoading'
+import { Formik, useFormik } from 'formik'
 import { useAuth } from '../../../../app/modules/auth'
+import { useListView } from './core/ListViewProvider'
+import clsx from 'clsx'
 
-type Props = {
+type Formik = {
   userId: ID
   user: ResponseUser
+  isUserLoading: boolean
   handleClose: () => void | undefined
-  stepper: React.MutableRefObject<StepperComponent | null>
-  stepperRef: React.MutableRefObject<HTMLDivElement | null>
 }
-const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, stepper}) => {
+export const UserModalContent: FC<Formik> = ({ handleClose, userId, user, isUserLoading }) => {
   // debugger;
-  const {currentUser} = useAuth()
   const intl = useIntl()
+  const { setItemIdForUpdate } = useListView()
+  const { refetch } = useQueryResponse()
+
   const [data, setData] = useState<User>(user.users)
-  const [isSubmitting, setSubmitting] = useState(false)
-  const [hasError, setHasError] = useState(false)
-  const {query} = useQueryResponse()
-  const queryClient = useQueryClient()
-  
   const createAccountSchemas = [
     Yup.object().shape({
       name: Yup.string()
@@ -55,202 +53,85 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
     }),
   ]
 
-  const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
-
   const updateData = (fieldsToUpdate: Partial<User>) => {
     const updatedData = {...data, ...fieldsToUpdate}
     setData(updatedData)
   }
 
-  const checkUserBasic = () => {
-    // debugger
-    if (!data.name || !data.email) {
-      return false
+  const cancel = (withRefresh?: boolean) => {
+    if (withRefresh) {
+      refetch()
     }
-    return true
+    setItemIdForUpdate(undefined)
   }
 
-  const emailValid = useMutation(() =>
-    getEmailValid(data).then((response) => {
-      // debugger;
-      const CurrentTheme = window.localStorage.getItem('kt_theme_mode_value') || ''
-      let theme = ''
-      if (CurrentTheme === 'dark') {
-        theme = '#353b48'
-      } else {
-        theme = '#fff'
+  const formik = useFormik({
+    initialValues: user.users,
+    validationSchema: createAccountSchemas,
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true)
+      try {
+        if (isNotEmpty(values.id)) {
+          await updateUser(values)
+        } else {
+          await createUser(values)
+        }
+      } catch (ex) {
+        console.error(ex)
+      } finally {
+        setSubmitting(true)
+        cancel(true)
       }
-      if (response?.errors === true) {
-      // console.log(theme)
-      Swal.fire({
-        icon: 'warning',
-        html: "<h5>"+response?.message+"</h5>",
-        background: theme,
-        confirmButtonColor: '#009ef7',
-        color: '#fff',
+    },
+  })
+  const [logo, setLogo] = useState(data.avatar)
+  // const [profileImage, setProfileImage] = useState("teste");
+  // debugger;
+
+  const handleCreateBase64 = useCallback(
+    async (e: any) => {
+      // debugger
+      const file = e.target.files[0]
+
+      const base64: any = await convertToBase64(file)
+      setLogo(base64)
+
+      updateData({
+        avatar: e.target.files[0],
       })
-        return true
+      // createUser(data)
+    },
+    [updateData]
+  )
+  // console.log(data)
+
+  const convertToBase64 = (file: Blob) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      if (!file) {
+        alert('Please select an image')
       } else {
-        return false
+        fileReader.readAsDataURL(file)
+        fileReader.onload = () => {
+          resolve(fileReader.result)
+        }
+      }
+      fileReader.onerror = (error) => {
+        reject(error)
       }
     })
-  )
-
-  const checkUserAdvanced = (): boolean => {
-    if (!data.id) {
-      if (!data.password || !data.cost_hour) {
-        return false
-      }
-      return true
-    } else {
-      if (!data.cost_hour) {
-        return false
-      }
-      return true
-    }
   }
 
-  // const checkUserWorkDays = (): boolean => {
-  //   // debugger;
-  //   const shift_time = isNotEmpty(data.shift_time)
-  //   const work_days = data.workdays.length > 0 ? false : true
-  //   if (!shift_time || work_days) {
-  //     return false
-  //   }
-
-  //   return true
-  // }
-
-  const prevStep = () => {
-    if (!stepper.current) {
-      return
-    }
-    if (stepper.current.currentStepIndex === 2) {
-      setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 2])
-    } else {
-      setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])
-    }
-    stepper.current.goPrev()
+  const deleteImage = (e: any) => {
+    e.preventDefault()
+    updateData({
+      avatar: 'null',
+    })
+    setLogo('')
   }
 
-  const nextStep = async () => {
-    setHasError(false)
-    if (!stepper.current) {
-      return
-    }
-
-    if (stepper.current.getCurrentStepIndex() === 1) {
-      if (!data.id) {
-        if (await emailValid.mutateAsync()) {
-          setHasError(true)
-          return
-        } else if (!checkUserBasic()) {
-          setHasError(true)
-          return
-        }
-      }
-    } else if (stepper.current.getCurrentStepIndex() === 2) {
-      if (!checkUserAdvanced()) {
-        setHasError(true)
-        return
-      }
-    }
-    setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex])
-    
-    stepper.current.goNext()
-  }
-
-  const create = useMutation(() => createUser(data), {
-    // 💡 response of the mutation is passed to onSuccess
-    onSuccess: (response) => {
-      // ✅ update detail view directly
-      // debugger;
-      const CurrentTheme = window.localStorage.getItem('kt_theme_mode_value') || ''
-      let theme = ''
-      if (CurrentTheme === 'dark') {
-        theme = '#353b48'
-      } else {
-        theme = '#fff'
-      }
-      // console.log(theme)
-      Swal.fire({
-        icon: 'success',
-        title: 'Criado!', 
-        html: "<h5>"+response?.message+"</h5>",
-        background: theme,
-        confirmButtonColor: '#009ef7',
-        color: '#fff',
-      })
-      handleClose()
-      queryClient.invalidateQueries()
-    },
-    onError: (error: any) => {
-      setSubmitting(false)
-      Swal.fire({
-        icon: 'warning',
-        // text: error.response.data.errors.email[0],
-      })
-    },
-  })
-
-  const update = useMutation(() => updateUser(data), {
-    // 💡 response of the mutation is passed to onSuccess
-    onSuccess: (response) => {
-      // ✅ update detail view directly
-      const CurrentTheme = window.localStorage.getItem('kt_theme_mode_value') || ''
-      let theme = ''
-      if (CurrentTheme === 'dark') {
-        theme = '#353b48'
-      } else {
-        theme = '#fff'
-      }
-      // console.log(theme)
-      Swal.fire({
-        icon: 'success',
-        title: 'Atualizado!',
-        html: "<h5>"+response?.message+"</h5>",
-        background: theme,
-        confirmButtonColor: '#009ef7',
-        color: '#fff',
-      })
-      handleClose()
-      queryClient.invalidateQueries()
-    },
-    onError: (error: any) => {
-      setSubmitting(false)
-      Swal.fire({
-        icon: 'warning',
-        text: error.response.data.errors.email[0],
-      })
-    },
-  })
-
-  const submit = () => {
-    setHasError(false)
-    if (!stepper.current) {
-      return
-    }
-    if (stepper.current.getCurrentStepIndex() === 2) {
-        // data.cost_hour = data.cost_hour.replace('.', '').replace(',', '.')
-        if (userId) {
-          setSubmitting(true)
-          return update.mutateAsync()
-        } else {
-          setSubmitting(true)
-          return create.mutateAsync()
-        }
-    }else {
-      if (userId) {
-        setSubmitting(true)
-        return update.mutateAsync()
-      } else {
-        // debugger;
-        setSubmitting(true)
-        return create.mutateAsync()
-      }
-    }
-  }
-
+  const CurrentTheme = window.localStorage.getItem('kt_theme_mode_value') || ''
+console.log(formik.values)
   return (
     <>
       <div className='modal-header'>
@@ -261,142 +142,154 @@ const UserModalContent: FC<Props> = ({handleClose, userId, user, stepperRef, ste
         </div>
         {/* end::Close */}
       </div>
-
-      <div className='modal-body py-lg-12 px-lg-12'>
-        {/*begin::Stepper */}
-        <div
-          ref={stepperRef}
-          className='stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid'
-          id='kt_modal_edit_project_stepper'
+      <div className='modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15'>
+        <form
+          id='kt_modal_edit_user_form'
+          className='form'
+          onSubmit={formik.handleSubmit}
+          noValidate
         >
-          <div className='d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px'>
-            {/* begin::Aside*/}
-            <div className='card-body px-6 px-lg-10 px-xxl-15 py-20'>
-              {/* begin::Nav*/}
-              <div className='stepper-nav'>
-                {/* begin::Step 1*/}
-                <div className='stepper-item current' data-kt-stepper-element='nav'>
-                  {/* begin::Wrapper*/}
-                  <div className='stepper-wrapper'>
-                    {/* begin::Icon*/}
-                    <div className='stepper-icon w-40px h-40px'>
-                      <i className='stepper-check fas fa-check'></i>
-                      <span className='stepper-number'>1</span>
-                    </div>
-                    {/* end::Icon*/}
-
-                    {/* begin::Label*/}
-                    <div className='stepper-label'>
-                      <h3 className='stepper-title'>
-                        {intl.formatMessage({id: 'FORM.STEP.NAME.BASE_DETAILS'})}
-                      </h3>
-
-                      <div className='stepper-desc'>
-                        {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.BASE_DETAILS'})}
-                      </div>
-                    </div>
-                    {/* end::Label*/}
-                  </div>
-                  {/* end::Wrapper*/}
-
-                  {/* begin::Line*/}
-                  <div className='stepper-line h-40px'></div>
-                  {/* end::Line*/}
-                </div>
-                {/* end::Step 1*/}
-
-                {/* begin::Step 2*/}
-                <div className='stepper-item' data-kt-stepper-element='nav'>
-                  {/* begin::Wrapper*/}
-                  <div className='stepper-wrapper'>
-                    {/* begin::Icon*/}
-                    <div className='stepper-icon w-40px h-40px'>
-                      <i className='stepper-check fas fa-check'></i>
-                      <span className='stepper-number'>2</span>
-                    </div>
-                    {/* begin::Icon*/}
-
-                    {/* begin::Label*/}
-                    <div className='stepper-label'>
-                      <h3 className='stepper-title'>
-                        {intl.formatMessage({id: 'FORM.STEP.NAME.ADVANCED_DETAILS'})}
-                      </h3>
-
-                      <div className='stepper-desc'>
-                        {intl.formatMessage({id: 'FORM.STEP.DESCRIPTION.ADVANCED_DETAILS'})}
-                      </div>
-                    </div>
-                    {/* begin::Label*/}
-                  </div>
-                  {/* end::Wrapper*/}
-                </div>
-                {/* end::Step 2*/}
+          <div className='fv-row mb-4 text-center'>
+          <div
+            className='image-input image-input-empty image-input-outline image-input-placeholder mb-3'
+            data-kt-image-input='true'
+          >
+            {CurrentTheme === 'dark' ? (
+              <img
+                className='image-input-wrapper w-150px h-150px'
+                src={
+                  isNotEmpty(logo) && logo !== 'null'
+                    ? logo
+                    : toAbsoluteUrl('/media/svg/files/blank-image-dark.svg')
+                }
+                alt='test'
+              />
+            ) : (
+              <img
+                className='image-input-wrapper w-150px h-150px'
+                src={
+                  isNotEmpty(logo) && logo !== 'null'
+                    ? logo
+                    : toAbsoluteUrl('/media/svg/files/blank-image.svg')
+                }
+                alt='test'
+              />
+            )}
+            {/* {logo ? "" : <img className='image-input-wrapper w-150px h-150px'
+              src={logo}
+              alt="test"
+            />} */}
+            <label
+              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+              data-kt-image-input-action='change'
+            >
+              <i className='bi bi-pencil-fill fs-7'></i>
+              <input
+                type='file'
+                name='avatar'
+                id='avatar'
+                accept='.png, .jpg, .jpeg'
+                onChange={handleCreateBase64}
+              />
+              <input type='hidden' name='avatar_remove' />
+            </label>
+            <label
+              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+              data-kt-image-input-action='cancel'
+              data-bs-toggle='tooltip'
+              aria-label='Cancel avatar'
+              data-bs-original-title='Cancel avatar'
+              data-kt-initialized='1'
+            >
+              <button
+                className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+                onClick={deleteImage}
+              >
+                <i className='bi bi-x fs-2'></i>
+              </button>
+            </label>
+          </div>
+          <div className='fs-8 pb-5'>
+            Defina a imagem em miniatura do post. Somente arquivos de imagem *.png, *.jpg e *.jpeg
+            são aceitos
+          </div>
+          </div>
+          <div className='fv-row mb-4'>
+          <label htmlFor='name' className='d-flex align-items-center fs-5 fw-semibold mb-2'>
+            <span className='required'>
+              {intl.formatMessage({id: 'FORM.INPUT.NAME.USER_NAME'})}
+            </span>
+            <i
+              className='fas fa-exclamation-circle ms-2 fs-7'
+              data-bs-toggle='tooltip'
+              title={intl.formatMessage({id: 'FORM.INPUT.TOOLTIP.USER_NAME'})}
+            ></i>
+          </label>
+          <input
+            type='text'
+            className={clsx(
+              'form-control form-control-lg form-control-solid',
+              {'is-invalid': !formik.touched.name && formik.errors.name},
+              {
+                'is-valid': data.name && !formik.errors.name,
+              }
+            )}
+            name='name'
+            id='name'
+            placeholder=''
+            autoComplete='off'
+            value={data.name ?? ''}
+            onChange={(e: any) => {
+              formik.setFieldValue('name', e.target.value)
+              updateData({
+                name: e.target.value,
+              })
+            }}
+          />
+          {!formik.touched.name && data.name && formik.errors.name && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.name}</span>
               </div>
-              {/* end::Nav*/}
             </div>
-            {/* begin::Aside*/}
-          </div>
-          {/*begin::Content */}
-          <div className='flex-row-fluid py-lg-5 px-lg-15'>
-            {/*begin::Form */}
-            {/* <Formik validationSchema={currentSchema} initialValues={data} onSubmit={submit}>
-              {(props) => (
-                <form noValidate id='kt_modal_edit_project_form'>
-                  <Step1 data={data} updateData={updateData} hasError={hasError} props={props} />
-                  <Step2 data={data} updateData={updateData} hasError={hasError} props={props} />
-                  <div className='d-flex flex-stack pt-10'>
-                    <div className='me-2'>
-                      <button
-                        type='button'
-                        className='btn btn-lg btn-light-primary me-3'
-                        data-kt-stepper-action='previous'
-                        onClick={prevStep}
-                      >
-                        <KTSVG
-                          path='/media/icons/duotune/arrows/arr063.svg'
-                          className='svg-icon-3 me-1'
-                        />
-                        {intl.formatMessage({id: 'GENERAL.BACK'})}
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        type='button'
-                        className='btn btn-lg btn-primary'
-                        data-kt-stepper-action='submit'
-                        onClick={submit}
-                      >
-                        {intl.formatMessage({id: 'GENERAL.SAVE_BUTTON'})}
-                        <KTSVG
-                          path='/media/icons/duotune/arrows/arr064.svg'
-                          className='svg-icon-3 ms-2 me-0'
-                        />
-                      </button>
-
-                      <button
-                        type='button'
-                        className='btn btn-lg btn-primary'
-                        data-kt-stepper-action='next'
-                        onClick={nextStep}
-                        disabled={data.id ? props.isSubmitting : props.isSubmitting || !props.isValid || !props.touched }
-                      >
-                        {intl.formatMessage({id: 'GENERAL.NEXT_STEP'})}{' '}
-                        <KTSVG
-                          path='/media/icons/duotune/arrows/arr064.svg'
-                          className='svg-icon-3 ms-1 me-0'
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              )}
-            </Formik> */}
-          </div>
+          )}
+          {!data.name && (
+            <div className='fv-plugins-message-container'>
+              <div data-field='shift_time' data-validator='notEmpty' className='fv-help-block'>
+                {intl.formatMessage({id: 'FORM.INPUT.VALIDATION.REQUIRED'})}
+              </div>
+            </div>
+          )}
         </div>
+          {/*  */}
+          <div className='text-center pt-5'>
+            <button type='reset' className='btn btn-light me-5 py-2' data-kt-user-modal-action='cancel' onClick={() =>cancel} >
+              {intl.formatMessage({ id: 'FORM.GENERAL.CANCEL_BUTTON' })}
+            </button>
+
+            <button
+              type='submit'
+              className='btn btn-primary py-2'
+              data-kt-projects-modal-action='submit'
+              disabled={
+                isUserLoading || formik.isSubmitting || !formik.isValid || !formik.touched
+              }
+            >
+              <span className='indicator-label'>
+                {intl.formatMessage({ id: 'FORM.GENERAL.SAVE_BUTTON' })}
+              </span>
+              {(formik.isSubmitting || isUserLoading) && (
+                <span className='indicator-progress'>
+                  {intl.formatMessage({ id: 'GENERAL.LOADING' })}{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+            </button>
+          </div>
+        </form>
       </div>
-      {isSubmitting && <UsersListLoading />}
+      {(formik.isSubmitting || isUserLoading) && <UsersListLoading />}
     </>
+
   )
 }
-
-export {UserModalContent}
