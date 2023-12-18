@@ -10,22 +10,15 @@ import {UsersListLoading} from './loading/UsersListLoading'
 type Props = {
   id: ID
   handleClose: () => void | undefined
-  stepper: React.MutableRefObject<StepperComponent | null>
-  stepperRef: React.MutableRefObject<HTMLDivElement | null>
-  setIsLoading: React.SetStateAction<any>
 }
 
 const UserModalContentWrapper: FC<Props> = ({
   id,
   handleClose,
-  stepper,
-  stepperRef,
-  setIsLoading,
 }) => {
   // debugger;
   const [itemIdForUpdate, setItemIdForUpdate] = useState<ID>(id)
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate)
-  setIsLoading(true);
 
   const {
     isLoading,
@@ -76,25 +69,19 @@ const UserModalContentWrapper: FC<Props> = ({
           message: '',
           errors: false
         }}
-        userId={undefined}
-        stepper={stepper}
-        stepperRef={stepperRef}
-      />
+        userId={undefined} isUserLoading={false}      />
     )
   }
 
   if (!isLoading && !error && user) {
     // console.log('update')
     // debugger;
-    setIsLoading(isLoading)
     return (
       <UserModalContent
         handleClose={handleClose}
         userId={id}
-        user={user}
-        stepper={stepper}
-        stepperRef={stepperRef}
-      />
+        user={user} 
+        isUserLoading={isLoading}      />
     )
   } else {
     return <UsersListLoading />

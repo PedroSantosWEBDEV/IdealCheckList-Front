@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->string('name');
-            $table->boolean('active')->nullable();
-            $table->integer('creator_id')->nullable()->index('fk_creator_idx');
-            $table->timestamps();
+        Schema::table('company', function (Blueprint $table) {
+            $table->foreign(['creator_id'], 'fk_creator_idx')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_company');
+        Schema::table('company', function (Blueprint $table) {
+            $table->dropForeign('fk_creator1');
+        });
     }
 };

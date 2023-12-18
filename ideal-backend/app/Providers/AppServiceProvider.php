@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(\App\Interfaces\Service\UserServiceInterface::class, \App\Services\UserService::class);
         $this->app->bind(\App\Interfaces\Service\SelectServiceInterface::class, \App\Services\SelectService::class);
-        
+        $this->app->bind(\App\Interfaces\Service\CompanyServiceInterface::class, \App\Services\CompanyService::class);
     }
 
     /**

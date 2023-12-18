@@ -2,7 +2,7 @@ import {Modal} from 'react-bootstrap'
 import {ID} from '../../../helpers'
 import {UserModalContentWrapper} from './UserModalContentWrapper'
 import { StepperComponent } from '../../../assets/ts/components'
-import { useRef, useState ,useEffect} from 'react'
+import { useRef, useState} from 'react'
 
 type Props = {
   show: boolean
@@ -11,20 +11,6 @@ type Props = {
 }
 
 const UserModal: React.FC<Props> = ({show, handleClose, userId}) => {
-  const stepperRef = useRef<HTMLDivElement | null>(null)
-  const stepper = useRef<StepperComponent | null>(null)
-  const [isLoanding,setIsLoading] = useState(true)
-// debugger;
-  useEffect(() => {
-    // console.log("Entrou Aqui")
-    stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
-  },[isLoanding])
-
-  const loadStepper =  () => {
-     stepper.current =  StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
-  }
-  // console.log(stepper);
-  // console.log(stepperRef);
 // debugger;
   return (
     <Modal
@@ -34,10 +20,9 @@ const UserModal: React.FC<Props> = ({show, handleClose, userId}) => {
     dialogClassName='modal-dialog modal-dialog-centered mw-900px'
     show={show}
     onHide={handleClose}
-    onEntered={loadStepper}
     backdrop={true}
   >
-      <UserModalContentWrapper id={userId} setIsLoading={setIsLoading} stepper={stepper} stepperRef ={stepperRef} handleClose={handleClose} />
+      <UserModalContentWrapper id={userId} handleClose={handleClose} />
     </Modal>
   )
 }
